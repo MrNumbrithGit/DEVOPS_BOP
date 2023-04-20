@@ -29,7 +29,7 @@ setup:    Gathers information about remote hosts, including hardware and softwar
 wait_for_connection:    Waits for SSH connections to be established on the remote hosts.
 ios_command:    Executes IOS commands on Cisco network devices.
 ios_config:    Configures IOS devices using Cisco's Configuration Language (CCL).
-
+expect: Sends and receives responses to interactive prompts during playbook execution, allowing automation of tasks that require user interaction.
 
 
 
