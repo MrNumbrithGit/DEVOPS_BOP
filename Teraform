@@ -1,0 +1,22 @@
+# Teraform 
+Terraform is a popular infrastructure as code (IaC) tool used in DevOps. Here are five points that explain what Terraform is and why it's used in DevOps:
+
+Terraform automates infrastructure provisioning and management through defining infrastructure as code using a simple, declarative language.
+Terraform is cloud-agnostic, supporting multiple cloud providers such as AWS, Azure, and Google Cloud Platform, enabling easy infrastructure management across 
+different cloud environments.
+Terraform code is just text files, allowing version control systems like Git to track changes and roll back if necessary, making it easy for teams to collaborate.
+Terraform simplifies infrastructure management by allowing all infrastructure resources to be managed from a single tool, especially useful for complex infrastructure 
+setups.
+Terraform aligns with DevOps best practices such as Infrastructure as Code, version control, and CI/CD, facilitating better collaboration and faster delivery of 
+infrastructure changes.
+
+
+
+# WHY Terraform ?
+Terraform allows you to define and manage infrastructure as code.
+Terraform supports multiple cloud providers.
+Terraform uses a declarative configuration syntax.
+Terraform provides a unified way to manage different types of resources.
+Terraform enables automation of infrastructure creation and management. 
+Scalability: Terraform is designed to scale with your infrastructure needs
+Security: Terraform provides security features, such as encrypted state storage and access control, to help you secure your infrastructure code and configurations.
