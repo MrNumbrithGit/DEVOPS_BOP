@@ -1,0 +1,31 @@
+ami: The ID of the Amazon Machine Image (AMI) to use for the instance.
+instance_type: The type of instance to launch, e.g. t2.micro, m5.large, etc.
+subnet_id: The ID of the subnet in which to launch the instance.
+vpc_security_group_ids: A list of security group IDs to associate with the instance.
+key_name: The name of the EC2 key pair to use for SSH access to the instance.
+user_data: The user data to provide when launching the instance, such as a script or cloud-init config.
+tags: A mapping of tags to assign to the instance.
+root_block_device: The configuration of the root block device for the instance, such as size and type.
+ebs_block_device: A list of additional EBS block devices to attach to the instance.
+associate_public_ip_address: Whether or not to associate a public IP address with the instance.
+
+availability_zone: The availability zone in which to launch the instance.
+iam_instance_profile: The IAM instance profile to associate with the instance.
+disable_api_termination: Whether or not to prevent the instance from being terminated via the API.
+instance_initiated_shutdown_behavior: The behavior when the instance is shut down, e.g. stop or terminate.
+metadata_options: Metadata options for the instance, such as HTTP endpoint and token.
+network_interface: Configuration for a network interface to attach to the instance.
+placement_group: The placement group to launch the instance into.
+private_ip: The private IP address to associate with the instance.
+source_dest_check: Whether or not to check the source/destination of network traffic to/from the instance.
+ami_block_device_mappings: Configuration for additional block devices to attach to the instance from the AMI.
+credit_specification: The credit specification for the instance, if using T2 or T3 instance types.
+instance_profile: The name of the IAM instance profile to associate with the instance.
+ipv6_address_count: The number of IPv6 addresses to associate with the instance.
+ipv6_addresses: A list of IPv6 addresses to associate with the instance.
+monitoring: Whether or not to enable detailed monitoring for the instance.
+security_groups: A list of security group names to associate with the instance.
+tenancy: The tenancy of the instance, e.g. dedicated or default.
+count: The number of instances to launch with this resource definition.
+depends_on: A list of resources to depend on before launching the instance.
+
