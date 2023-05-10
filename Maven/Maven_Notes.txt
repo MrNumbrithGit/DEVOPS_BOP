@@ -1,0 +1,122 @@
+MAVEN
+
+Maven is a popular build tool and project management tool ,that automates the software development process.
+It simplifies the process of managing project dependencies, building and packaging software, and managing the software lifecycle.
+Developers can define a project's dependencies in a single configuration file, and Maven will automatically download and manage these dependencies.
+Maven provides a consistent and repeatable way to build and package software, which reduces the time and effort required to manage the software development lifecycle.
+By using Maven, DevOps teams can improve the overall quality of the software and reduce the risk of errors during the build and deployment process.
+
+
+BUILD TOOL -- > PROJECT MANAGEMENT TOOL( WHAT DEPENDECIES ARE USED ? USED ON C# , JAVA , RUBY )
+
+
+INSTALLATION (https://linuxize.com/post/how-to-install-apache-maven-on-ubuntu-18-04/)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ant and Maven are both build tools used in Java development. Ant is a more flexible and customizable build tool that relies on XML configuration files, 
+while Maven follows a convention-over-configuration approach and uses a standard project structure and plugins. Maven also offers features like dependency management 
+and a centralized repository for dependencies, while Ant requires more manual configuration for these tasks.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+POM.XML
+
+
+Should have only one pom.xml file.
+
+GAV
+
+It is a unique identifier for a specific artifact in the Maven repository.
+
+Group Id: It identifies the group or organization that created the artifact. It is usually a reverse domain name, like "com.example".
+Artifact Id: It identifies the specific artifact within the group. For example, "my-app".
+Version: It identifies the version of the artifact. For example, "1.0-SNAPSHOT".
+
+EXAMPLE
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.example</groupId>
+  <artifactId>my-app</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+</project>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SUPER POM
+
+The Super POM (Project Object Model) is the default POM provided by Maven. It defines the default configuration and plugins for all Maven projects unless explicitly
+ overridden in the project's POM. It serves as a starting point and a reference for the configuration of a Maven project.
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+BUILD LIFECYCLE:
+
+Clean: Deletes the target directory to clean the build environment.
+
+Default (or Build): Executes the build process for the project, including compiling the source code, running tests, and packaging the built artifacts.
+
+Site: Generates the project's site documentation and reports, which include information on the project's dependencies, testing results, code coverage, and more.
+
+
+PHASES OF DEFAULT LIFECYCLE
+
+
+validate: Validates the project and its dependencies, making sure they are correct and all necessary information is available.
+
+compile: Compiles the source code of the project.
+
+test: Runs the unit tests for the project.
+
+package: Packages the compiled code into a distributable format, such as a JAR or WAR file.
+
+verify: Runs any checks to verify that the package is valid and meets quality criteria.
+
+install: Installs the package into the local repository, making it available to other local projects.
+
+deploy: Copies the final package to the remote repository, making it available to other developers and projects.
+
+These phases are executed in sequence by default when the "mvn install" or "mvn deploy" command is run
+
+PACKAGING
+The default packaging type is "jar", but it can be changed to other values such as "war", "pom", "ear", "rar", etc., depending on the type of project being built.
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>my-web-app</artifactId>
+  <version>1.0.0</version>
+  <packaging>war</packaging>
+  ...
+</project>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mvn clean --> Deletes the target directory.
+
+mvn site --> All dependencies that will be downloaded.
+
+mvn validate --> Checks for the Syntax and dependencies
+
+mvn test --> Using unit testing framework tests happens
+
+mvn package --> complied code into distributable format.
+
+mvn verify -->  Checks for integration tests.
+
+mvn install --> Installs the package into the local repository(Maven is often referred to as the ".m2" directory, as it is typically located in the user's home directory under a folder named ".m2".)
+
+mvn deploy --> Copies the final package to the remote repository(Like nessus)
+
+
