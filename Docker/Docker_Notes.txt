@@ -1,0 +1,609 @@
+Docker Image: A lightweight, standalone, executable package that includes everything needed to run a piece of software,
+ including the code, libraries, dependencies, and runtime environment.
+
+Docker Container: An isolated and portable runtime environment that contains all the dependencies and configurations necessary
+ to run a piece of software, based on a Docker image.
+
+Docker Registry: A centralized repository for storing and sharing Docker images, which can be either public or private.
+
+Dockerfile: A text file that contains a set of instructions for building a Docker image, including the base image, dependencies,
+ environment variables, and other configuration options.
+
+Docker Compose: A tool for defining and running multi-container Docker applications, allowing users to specify the configuration
+ and dependencies of all the services that make up an application in a single file.
+
+Docker Swarm: A native clustering and orchestration tool for Docker, which allows users to deploy and manage a group of Docker 
+hosts as a single virtual system.
+
+Docker Volume: A persistent data storage mechanism for Docker containers, allowing data to be stored outside the container and 
+be shared across multiple containers.
+
+Docker Network: A virtual network that allows Docker containers to communicate with each other, either within a single Docker 
+host or across multiple hosts in a distributed system.
+
+================================================================================================================================
+
+Docker Image: To build a Docker image for a simple Python web app, you can create a Dockerfile with the following content:
+
+
+FROM python:3
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python", "app.py"]
+
+Then, run the following command to build the Docker image:
+
+docker build -t my-python-app .
+
+
+Docker Container: To run a container based on the Docker image we built in the previous example, you can use the following command:
+
+docker run -d -p 5000:5000 my-python-app
+
+This will start a container running the Python web app on port 5000, which can be accessed through a web browser or curl.
+
+Docker Registry: To push the Docker image we built to a Docker registry, you can use the following command:
+
+docker push my-registry/my-python-app
+
+This will push the image to the Docker registry at the repository my-registry with the name my-python-app.
+
+Dockerfile: The example in point 1 shows how to create a Dockerfile for building a Python web app image.
+
+Docker Compose: To define a multi-container application using Docker Compose, you can create a docker-compose.yml file with the following content:
+
+yaml
+
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+  redis:
+    image: "redis:alpine"
+	
+This defines two services: a web service based on the current directory (where the Dockerfile is) and a Redis service based on the Redis Alpine image. Then, run the following command to start the application:
+
+
+docker-compose up
+
+This will start both services and link them together so that the web service can communicate with the Redis service.
+
+Docker Swarm: To create a Docker Swarm cluster, you can run the following command on the manager node:
+
+docker swarm init
+
+This will initialize the Swarm mode and create a new Swarm cluster with the current node as the manager. Then, you can join worker nodes to the cluster by running the following command on each worker node:
+
+
+docker swarm join --token <token> <manager-node-ip>
+
+This will join the worker node to the Swarm cluster and allow it to run services.
+
+Docker Volume: To create a Docker volume, you can use the following command:
+
+docker volume create my-data
+
+This will create a new Docker volume with the name my-data. Then, you can mount this volume to a container by running the following command:
+
+
+================================================================================================================================
+
+BEFORE DOCKER 
+
+TRADITIONAL DEPLOYMENT:
+Software is installed directly on physical servers.
+
+VIRTUALIZED DEPLOYMENT:
+Multiple virtual machines (VMs) run on a single physical server.
+
+CONTAINER DEPLOYMENT:
+Applications are packaged in lightweight, portable containers that can be easily moved between environments and orchestrated for automation and scaling.
+
+================================================================================================================================
+
+Portability: Containers are lightweight and portable, making it easy to move them between environments and deploy them on different infrastructures without modification.
+
+Isolation: Containers provide a high level of application isolation, so issues with one container are less likely to impact others running on the same host.
+
+Efficiency: Containers share the same operating system kernel, which reduces overhead and increases application density on a given host.
+
+Scalability: Containers can be easily scaled up or down based on demand, and container orchestration tools like Kubernetes provide automated scaling.
+
+Consistency: Containers provide a consistent environment for applications, regardless of where they are deployed.
+
+DevOps: Containers enable DevOps practices like continuous integration and continuous delivery, making it easier to release and update applications quickly and frequently.
+
+Security: Containers can be designed with security in mind, using techniques like image scanning and isolation to reduce the attack surface.
+
+================================================================================================================================
+Common Commands:
+  run         Create and run a new container from an image
+  exec        Execute a command in a running container
+  ps          List containers
+  build       Build an image from a Dockerfile
+  pull        Download an image from a registry
+  push        Upload an image to a registry
+  images      List images
+  login       Log in to a registry
+  logout      Log out from a registry
+  search      Search Docker Hub for images
+  version     Show the Docker version information
+  info        Display system-wide information
+
+Management Commands:
+  builder     Manage builds
+  buildx*     Docker Buildx (Docker Inc., v0.10.4)
+  compose*    Docker Compose (Docker Inc., v2.17.3)
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  network     Manage networks
+  plugin      Manage plugins
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Swarm Commands:
+  swarm       Manage Swarm
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+================================================================================================================================
+#check the version of docker.
+
+docker version
+
+Version:           23.0.5
+"23" is the major version number/year
+"0" is the minor version number
+"5" is the patch version number
+
+================================================================================================================================
+Docker client(command here) --> Docker demon(Checks here if its there) --> Docker Hub(Pull from the hub if its not there in hub)
+================================================================================================================================
+
+docker pull nginx  --> to get the image from the hub or demon(https://hub.docker.com/_/nginx)
+
+docker images  --> To list the images
+
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+nginx        latest    448a08f1d2f9   2 days ago   142MB
+
+#In here the tag mean the VERSION.
+
+docker pull nginx:1.20  
+
+#Version speacified after ":"  (nginx:1.20)
+
+docker run nginx  -> This will run in a interactive mode.
+
+#This command will create a nginx container.
+
+docker ps   ---> List the runnung containers.
+docker ps -a --->List the runnung or stopped containers.
+
+docker run --name BOP-websever -d nginx
+# --name is a name that we can give
+# -d is that which runs in the background.
+
+
+docker rm Cid
+
+#To stop a container
+
+docker ps -qa  --> This will show only ID of all the running/stopped container.
+
+docker stop $(docker ps -qa)  --> This will stop all the running containers.
+
+docker rm $(docker stop $(docker ps -qa))  --> This will Stop all C , and removes all.
+
+docker container prune
+# This will remove all stopped containers.
+
+docker rmi nginx
+#To remove a perticular image.
+
+docker images -qa --> This will show only ID of all the images.
+
+=====================================
+
+docker exec -it abdc7316b99f /bin/bash      --> TO get into a container as interactive mode.
+
+
+docker top abdc7316b99f
+#the processes running inside the container, including the process ID (PID).
+
+docker top abdc7316b99f --> Used to check the process running in a container.
+
+=====================================
+Port Exposing
+
+docker run --name some-nginx-port -d -p 8080:80 nginx
+
+8080:80
+Machine port:Container port
+# This says ,Whenever you get a request port 8080 send that to 80.
+
+0.0.0.0:8080->80/tcp, :::8080->80/tcp    --this means--> localhost:8080 ==> 80
+
+curl localhost:8080  --> Will get you the page.
+
+netstat -tunlp  --> This will show what port are used for what.
+
+#To check the logs of a container,
+docker logs dcb346b9eaca
+
+=====================================
+
+docker cp Try.txt dcb346b9eaca:/tmp
+#To copy file onto container,  we can do ulta also
+
+docker commit dcb346b9eaca  --> will create a new copy of the container.
+
+docker create Cid  --> The "docker create" command is used to create a new container from an image, but it does not start the container.
+ Instead, it returns a container ID that can be used later with the 
+ 
+ """""""docker start"""""""command to start the container.
+
+
+====================================================================================================================================================
+
+"docker export" allows you to save a container's filesystem as a tar archive, which can be useful for sharing 
+
+"docker import" allows you to create a new Docker image from a tar archive created by "docker export".
+
+Overall, "docker export" and "docker import" are useful tools for managing Docker containers and images,
+especially when it comes to sharing or backing up container data.
+
+==========================================
+
+docker kill --> force shutdown
+
+docker stop --> Gives time finsih the process
+
+==========================================
+
+"docker save" allows you to save Docker images and their dependencies into a single tar archive, which can be useful 
+for distributing or backing up your images.
+
+"docker load" allows you to restore Docker images from a tar archive created by "docker save", which can be useful 
+when you need to recreate a previous Docker environment or restore a backup of your Docker images.
+
+==========================================
+
+DOCKER VOLUME   (Used as ***BACKUP***)
+#Using volumes, you can store and manage data separately from the container filesystem, 
+making it easier to ***BACKUP***, migrate, and share data across multiple containers or hosts.
+
+docker volume ls   --> to list all the volume 
+
+#we can create a volume while you create a container,
+
+docker run --name testVolume2 -v BackupVolumeTest:/temp -d nginx
+                  name of con    volume name:/which folder 
+#This is will create a volume.
+
+DRIVER    VOLUME NAME
+local     BackupVolumeTest
+
+#Even though if you delete the container by miss ,
+you can run the same command to retrive container with same backedup file
+
+docker run --name testVolume2 -v BackupVolumeTest:/temp -d nginx
+
+==========================================
+
+VOLUME MOUNT
+
+docker run --name testVolume2 -v  /home/mrnumbrith/DoCkEr_Examples:/temp -d nginx
+												deamon folder   :  File in container
+#In docker volume mount , We can sync the docker system file to container folder  
+
+
+docker run --name testVolume2 -v  /home/mrnumbrith/DoCkEr_Examples:/temp -v /home/mrnumbrith/DoCkEr_Examples/docfolder:/  -d nginx
+#Mount 2 folder at once ,multiple containers.
+
+==========================================
+
+DOCKER FILE
+
+#To create a self made images rather than pulling from Docker hub.
+
+FROM ubuntu
+RUN apt-get update -y
+RUN apt-get install git -y
+
+Save the file as    "Dockerfile"
+
+docker build -t nameofthecon .    --> this will search for Dockerfile named file in directory.
+
+#NOTE : always have a empty folder.(as . will take a the files into considaration)
+
+#When you want name to changed.
+
+docker build -f pyname.txt .  --> With different name
+
+#Image name can be used 
+
+Docker build -t NameHere .
+
+#NOTE : If you want to add anything new to dokcerfile ,add it at the end.As it depends on cache model.
+
+docker build --no-cache .
+
+
+
+FROM - specifies the base image to use.
+RUN - executes a command in the container and creates a new layer.
+CMD - specifies the default command to run when the container starts.
+LABEL - adds metadata to an image.
+EXPOSE - exposes a port for use by other containers. (Just for documentation , will not make any change)
+ENV - sets an environment variable in the container.
+ADD - copies files or directories from the build context to the container.    This also can copy from remote repo 
+ADD https://example.com/file.txt /app/file.txt
+
+
+COPY - copies files or directories from the build context to the container.         				COPY . .
+
+#When you want ignore few files when you COPY , use    vi .dockerignore    file to add the file names that needs to be ignored.
+
+ENTRYPOINT - specifies the command to run when the container starts, overriding CMD.
+VOLUME - creates a mount point for a volume in the container.
+USER - sets the user or UID for the container.
+WORKDIR - sets the working directory for the container.
+ARG - specifies a build-time argument.
+ONBUILD - adds a trigger instruction to be executed when the image is used as a base for another image.
+
+RUN - Exicuted Compile time
+CMD - Exicuted Runtime in container
+
+==========================================
+
+# This is a comment
+FROM ubuntu:latest
+
+LABEL maintainer="Your Name <youremail@example.com>"
+
+ENV MY_VAR my_value
+
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY index.html /var/www/html
+
+EXPOSE 80
+
+WORKDIR /var/www/html
+
+USER www-data
+
+CMD ["nginx", "-g", "daemon off;"]
+
+VOLUME /var/www/html
+
+ARG build_var
+
+ONBUILD ADD . /app
+
+ENTRYPOINT ["echo", "Hello world!"]
+
+
+
+#Multi stage dockerfile is used to reduce the image size.
+
+A multi-stage Dockerfile is used to create Docker images that are optimized for size and performance.
+It does this by breaking up the build process into multiple stages, each of which can be optimized for a specific task.
+This helps to create a final Docker image that only includes what is needed to run the application, making it smaller and faster.
+
+FROM maven as build
+WORKDIR /app
+COPY . .
+RUN mvn install
+
+FROM openjdk:11.0.10-jre
+WORKDIR /app
+COPY --from=build /app/target/zuul-0.0.1-SNAPSHOT.jar /app
+EXPOSE 9999
+CMD ["java","-jar","zuul-0.0.1-SNAPSHOT.jar"]
+==========================================
+
+/home/mrnumbrith/DoCkEr_Examples/Micro_services/micro-service-starter/docker_code/ui-web-app-reactjs
+
+FROM node:8
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 8080
+CMD ["npm","start"]
+
+
+
+
+
+FROM maven as build
+WORKDIR /app
+COPY . .
+RUN mvn install
+
+FROM openjdk:11.0.10-jre
+WORKDIR /app
+COPY --from=build /app/target/zuul-0.0.1-SNAPSHOT.jar /app
+EXPOSE 9999
+CMD ["java","-jar","zuul-0.0.1-SNAPSHOT.jar"]
+
+
+
+Take a application with UI , APIGateway and 4 micro services.
+
+#1
+We can go with UI , as UI is build in node:8 , we can write a docker file for the same.
+
+FROM node:8
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 8080
+CMD ["npm","start"]
+
+docker build -t ui .
+
+docker run -d -p 8080:8080 ui
+
+#2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+We can work on API
+
+FROM maven as build
+WORKDIR /app
+COPY . .
+RUN mvn install
+
+FROM openjdk:11.0.10-jre
+WORKDIR /app
+COPY --from=build /app/target/zuul-0.0.1-SNAPSHOT.jar /app
+EXPOSE 9999
+CMD ["java","-jar","zuul-0.0.1-SNAPSHOT.jar"]
+
+
+docker build -t zuul .
+
+docker run -d -p 9999:9999 zuul
+
+==========================================
+
+
+DOCKER - COMPOSE
+
+# This will help in bringing up all the images and container of an application in a single file.
+
+version - Specifies the version of the Docker Compose file syntax being used.
+services - Defines the individual services/containers that make up the application.
+image - Specifies the Docker image to use for a service.
+build - Defines the build context and Dockerfile location for building a custom image for a service.
+ports - Exposes ports on the host machine and forwards them to containers.
+volumes - Mounts directories or files from the host machine to containers for persistent storage.
+networks - Creates custom networks for containers to communicate with each other.
+environment - Sets environment variables for containers.
+depends_on - Defines the dependencies between services and ensures they are started in the correct order.
+restart - Specifies the restart policy for a container in case of failure.
+==========================================
+version: '2'
+
+services:
+  ui:
+    build: ./ui-web-app-reactjs
+    ports:
+      - 8080:8080
+
+  zuul:
+    build: ./zuul-api-gateway
+    ports:
+      - 9999:9999
+    depends_on:
+      - ui
+  
+  shoe:
+    image: deekshithsn/shoe
+    ports:
+      - 1002:1002
+    depends_on:
+      - zuul
+
+  offers:
+    image: deekshithsn/offer
+    ports:
+      - 1001:1001
+    depends_on:
+      - zuul
+
+  cart:
+    image: deekshithsn/cart
+    ports:
+      - 1004:1004
+    depends_on:
+      - zuul
+
+  wishlist:
+    image: deekshithsn/wishlist
+#    volumes:
+#      - ./wishlist-microservice-python:.
+    ports:
+      - 1003:5000
+    depends_on:
+      - zuul
+==========================================	  
+
+docker-compose up     --> This command will run the file (Interactive mode).
+
+docker-compose up -d  --> in the background.
+
+========================================================================================================================================================================
+
+DOCKER NETWORKS 
+
+docker 0 will be the network interface bw docker and the main machine.
+
+apt-get install iputils-ping  --> Used get few ip commands like "ping".
+
+docker network create - Creates a new network:
+docker network create my-network
+
+docker network ls - Lists networks:
+docker network ls
+
+docker network inspect - Displays detailed information about a network:
+docker network inspect my-network
+
+docker network connect - Connects a container to a network:
+docker network connect my-network my-container
+
+docker network disconnect - Disconnects a container from a network:
+docker network disconnect my-network my-container
+
+docker network rm - Removes a network:
+docker network rm my-network
+
+docker network prune - Removes all unused networks:
+docker network prune
+
+docker network create with the --driver option - Creates a network with a specific driver:
+docker network create --driver bridge my-network
+
+docker network inspect with the --format option - Formats the network inspection output using a Go template:
+docker network inspect --format '{{.Name}} {{.Driver}}' my-network
+
+
+docker run -d -it --network my-network ubuntu /bin/bash    --> This will create a container with that network.
+

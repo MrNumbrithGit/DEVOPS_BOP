@@ -1,0 +1,108 @@
+Docker Image: A lightweight, standalone, executable package that includes everything needed to run a piece of software,
+ including the code, libraries, dependencies, and runtime environment.
+
+Docker Container: An isolated and portable runtime environment that contains all the dependencies and configurations necessary
+ to run a piece of software, based on a Docker image.
+
+Docker Registry: A centralized repository for storing and sharing Docker images, which can be either public or private.
+
+Dockerfile: A text file that contains a set of instructions for building a Docker image, including the base image, dependencies,
+ environment variables, and other configuration options.
+
+Docker Compose: A tool for defining and running multi-container Docker applications, allowing users to specify the configuration
+ and dependencies of all the services that make up an application in a single file.
+
+Docker Swarm: A native clustering and orchestration tool for Docker, which allows users to deploy and manage a group of Docker 
+hosts as a single virtual system.
+
+Docker Volume: A persistent data storage mechanism for Docker containers, allowing data to be stored outside the container and 
+be shared across multiple containers.
+
+Docker Network: A virtual network that allows Docker containers to communicate with each other, either within a single Docker 
+host or across multiple hosts in a distributed system.
+
+================================================================================================================================
+
+Docker Image: To build a Docker image for a simple Python web app, you can create a Dockerfile with the following content:
+
+
+FROM python:3
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python", "app.py"]
+
+Then, run the following command to build the Docker image:
+
+docker build -t my-python-app .
+
+
+Docker Container: To run a container based on the Docker image we built in the previous example, you can use the following command:
+
+docker run -d -p 5000:5000 my-python-app
+
+This will start a container running the Python web app on port 5000, which can be accessed through a web browser or curl.
+
+Docker Registry: To push the Docker image we built to a Docker registry, you can use the following command:
+
+docker push my-registry/my-python-app
+
+This will push the image to the Docker registry at the repository my-registry with the name my-python-app.
+
+Dockerfile: The example in point 1 shows how to create a Dockerfile for building a Python web app image.
+
+Docker Compose: To define a multi-container application using Docker Compose, you can create a docker-compose.yml file with the following content:
+
+yaml
+
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+  redis:
+    image: "redis:alpine"
+	
+This defines two services: a web service based on the current directory (where the Dockerfile is) and a Redis service based on the Redis Alpine image. Then, run the following command to start the application:
+
+
+docker-compose up
+
+This will start both services and link them together so that the web service can communicate with the Redis service.
+
+Docker Swarm: To create a Docker Swarm cluster, you can run the following command on the manager node:
+
+docker swarm init
+
+This will initialize the Swarm mode and create a new Swarm cluster with the current node as the manager. Then, you can join worker nodes to the cluster by running the following command on each worker node:
+
+
+docker swarm join --token <token> <manager-node-ip>
+
+This will join the worker node to the Swarm cluster and allow it to run services.
+
+Docker Volume: To create a Docker volume, you can use the following command:
+
+docker volume create my-data
+
+This will create a new Docker volume with the name my-data. Then, you can mount this volume to a container by running the following command:
+
+
+================================================================================================================================
+
+BEFORE DOCKER 
+
+TRADITIONAL DEPLOYMENT:
+Software is installed directly on physical servers.
+
+VIRTUALIZED DEPLOYMENT:
+Multiple virtual machines (VMs) run on a single physical server.
+
+CONTAINER DEPLOYMENT:
+Applications are packaged in lightweight, portable containers that can be easily moved between environments and orchestrated for automation and scaling.
+
+================================================================================================================================
+
+
