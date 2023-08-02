@@ -1,0 +1,12 @@
+SUBNET MASK => THIS  DEFINES NUMBER NETWORK BIT AND HOST BIT
+
+
+CLASS FULL
+
+A    1-126         =>    / 8     (8 BIT IS NW)                ,  255.0.0.0
+B    128-191    =>   / 16  (16 BIT IS NW)        ,255.255.0.0
+C    192-223    =>   / 24     (24 BIT IS NW)         ,255.255.255.0
+
+SUBNETTING  - > SUB DEVISION OF BIG NETWORK
+
+
