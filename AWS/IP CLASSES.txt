@@ -1,0 +1,31 @@
+IP CLASSES
+128   64    32   16    8    4    2    1
+
+CLASS A   PRI => 10.0.0.0   TO 1O.255.255.255
+
+IN 8 TAKE 7 
+
+1.0.0.0
+1.0.0.1
+
+TILL
+
+126.255.255.254
+126.255.255.255
+
+
+CLASS B   10 IS CONST   
+
+IN 8 TAKE 6 
+
+
+
+CLASS C     11O IS CONST
+
+
+
+CLASS D     111O IS CONST
+
+
+
+
