@@ -1,0 +1,46 @@
+1 whats devops?
+Basic premise--	A collaboration of development and operations teams. It is more of a cultural shift.
+Related to--	Agile methodology
+Priorities--	Resource management, communication, and teamwork
+Benefits--	Speed, functionality, stability, and innovation
+
+2. How does HTTP work?
+HTTP or Hypertext Transfer Protocol works in a client–server model like the most other protocols. HTTP provides a way to interact with web resources by transmitting hypertext messages between clients and servers. 
+
+3. In terms of development and infrastructure, mention the core operations of DevOps.
+Core operations of DevOps include:
+
+Development
+Version Control
+Testing
+Integration
+Deployment
+Delivery
+Configuration
+Monitoring
+Feedback
+
+5. Name some of the most important DevOps tools?
+Git
+Maven
+Selenium
+Jenkins
+Docker
+Puppet
+Chef
+Ansible
+Nagios
+groovy
+
+6. What is CI? What is its purpose?
+CI or Continuous Integration is the process of compiling the entire code base, every time a member of the software development team checks the code, into the shared source code repository.
+
+Continuous Integration
+If a team member checks into the code file with a bug, then the build gets broken. In this sort of scenario, other developers can’t synchronize the shared source code repository without introducing compilation errors into their own local workspaces. Thus, collaborative and shared software development cannot go forward.
+
+When a CI build breaks, it is crucial that the problem is corrected immediately. A CI process often includes a suite of unit, and integration and regression tests that run every time the compilation succeeds. If any of these tests fail, the build will be considered unstable, not broken.
+
+
+8. What is the difference between continuous deployment and continuous delivery?
+Continuous deployment is fully automated, and the deployment to production needs no manual intervention in continuous deployment; whereas, in continuous delivery, the deployment to production requires some manual intervention for change management in the organization, and it needs to be approved by the manager or higher authorities to be deployed in production. According to your organization’s application risk factor, continuous deployment/delivery approach will be chosen.
+
