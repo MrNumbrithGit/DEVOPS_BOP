@@ -1,0 +1,9 @@
+ROUTE53
+-------
+CreateHostedZone:--- Creates a new hosted zone to contain your DNS data. After creating a Hosted Zone, you receive four name servers to which you can delegate your domain.
+GetHostedZone:--- Lists information about a specific hosted zone.
+DeleteHostedZone:--- Deletes a hosted zone.
+ChangeResourceRecordSets:--- Populates and edits the DNS resource records in a hosted zone.
+ListResourceRecordSets:--- Retrieves either all the resource record sets in a hosted zone or filtered by record name and type.
+CheckAvailability:--- Checks the availability of one domain.
+RegisterDomain:--- Registers the requested domain.
