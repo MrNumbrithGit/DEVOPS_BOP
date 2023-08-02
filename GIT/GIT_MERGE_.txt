@@ -1,0 +1,88 @@
+dev2
+
+  494  git init
+  495  git remote add origin https://github.com/NUMBRITHBOPANNA/rebaseandmerge.git
+  496  ls
+  497  notepad a1.txt
+  498  ls
+  499  git init
+  500  nano 123
+  501  ls
+  502  git checkout -b mass2
+  503  git add .
+  504  git commit -m "adding 123"
+  505  git remote add origin https://github.com/NUMBRITHBOPANNA/merge11.git
+  506  git push origin mass2
+  507  git push origin master
+  508  git merge mass2
+  509  git merge master
+  510  git branch
+  511  git pull origin master
+  512  git branch
+  513  git branch -r
+  514  git merge master
+  515  git merge origin/master
+  516  git log
+  517  git checkout master
+  518  git merge mass2
+  519  ls
+  520  git log
+  521  git merge mass2
+  522  git merge --allow-unrelated-histories
+  523  git pull origin master --allow-unrelated-histories
+  524  git merge mass2
+  525  ls
+  526  git checkout mass2
+  527  git merge master
+  528  git pull origin master --allow-unrelated-histories
+  529  ls
+  530  git log
+  531  history
+
+
+dev1
+
+
+  494  git init
+  495  git remote add origin https://github.com/NUMBRITHBOPANNA/rebaseandmerge.git
+  496  ls
+  497  notepad a1.txt
+  498  ls
+  499  git init
+  500  git branch
+  501  git branch -a
+  502  nano a
+  503  nano b
+  504  ls
+  505  git add a
+  506  git commit -m "first commit a"
+  507  git add b
+  508  git commit -m "second commit b"
+  509  git log
+  510  git remote add origin https://github.com/NUMBRITHBOPANNA/merge11.git
+  511  git push origin master
+  512  git checkout -b mass1
+  513  nano c
+  514  nano d
+  515  nano e
+  516  git add c d e
+  517  git commit -m "committ c d e"
+  518  git push origin mass1
+  519  ls
+  520  git branch
+  521  git merge master
+  522  git checkout master
+  523  git merge mass1
+  524  ls
+  525  git log
+  526  git log -a
+  527  git checkout mass1
+  528  git log
+  529  git log --a
+  530  git log -a
+  531  git log
+  532  git push origim master
+  533  git push origin master
+
+
+
