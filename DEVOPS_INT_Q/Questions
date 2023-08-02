@@ -52,3 +52,46 @@ how to insert data in sql
 what command is used to see the schema of the table.
 what all the basic linux command you know.
 What all service have you learnt in azure
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. what is the use of s3 bucket versioning ?
+2. what will happen if on the tracings of the lambda functions ?
+3. what encryption we use for s3 bucket ?
+4. what is vpc ? how we can connect private subnet to public subnet ec2 ?
+5. If we lost keypair how you will connect to ec2 instances ?
+6. what is cloud watch ?
+7. what is cloud trail ?
+8. How we can connect ec2 instances through Git ?
+9. How we can copy files from one repository to another repository in github ?
+10. Introduce yourself and about project ?
+11. How you will enable Lambda tracings through CLI ?
+12. How to block public access in s3 bucket ?
+13. How you will install video studio in linux?
+14. Have you ever created RDS ?
+15. Have you ever create any replicas for cross regions?
+16. what is fleet manager ? what is the use ?
+17. how you will patch the particular linux instance ?
+18.  which file we need to connect to linux instances ?
+19. what is git stash ?
+20. By private instances it will be one way traffic or two ways traffic if we connect to internet ? If we need to give access to public instances and end users how you will give through private instances ?
+21. what are the types of metrics ?
+22. If we are good with all setting up the instance but then to while connecting to instance it is showing as connection time out error what  will u do?
+23. what is Vpc peering ?
+24. Have you created Ec2 instances ?
+25. If volume is stopped you can able to start the instances ?
+26. Can we Downgrade the size of EBS Volume?
+27. How to increase size of EBS Volume ?
+Tell me about your self and daily activity?
+what is ec2, why its required?
+can we attached the extra volume in running instance?
+what is EBS?
+what is Route53 why do we use it?
+what is snapshot?
+write the Dockerfile
+what project u have performed
+what is vpc
+can you write the jenkins pipeline
+which language use in pipeline
+what feature we used to scedule the job in jenkink
+how can we take the backup in jenkin
