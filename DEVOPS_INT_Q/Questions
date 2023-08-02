@@ -95,3 +95,52 @@ can you write the jenkins pipeline
 which language use in pipeline
 what feature we used to scedule the job in jenkink
 how can we take the backup in jenkin
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+difference between Git and GitHub
+
+what type of tool is git?
+
+what type of versioning tool?
+
+distributed version control
+
+git pull, push
+
+what is master and origin in git
+
+how do you merge code in git
+
+what is webhook in jenkins?
+
+what is sonarqube?
+
+how do you explain the quality of source code 
+in sonar qube?
+
+tool for sonar qube
+
+what is Jenkins?
+
+what does workspace in Jenkins?
+
+master/slave in Jenkins?
+
+why do we need slave/master in Jenkins?
+
+experience in tomcat
+
+what is efs in aws?
+
+ebs in aws?
+
+difference between efs and ebs?
+
+how are thse efs and ebs from s3?
+
+why should i use ebs?
+
+difference btw s3 and ebs
+
+tell me what kind of files store in s3 and ebs?
