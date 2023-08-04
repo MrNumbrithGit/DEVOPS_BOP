@@ -150,7 +150,47 @@ Management Commands:
 
 Swarm Commands:
   swarm       Manage Swarm
+================================================================================================================================
 
+for linux in aws docker basicsrun all the commands
+present there
+docker info-gives you the infomation about the docker
+docker images -images the already exist
+docker ps-how many containers are they or details of container or running conatiner
+docker ps -a -all containers
+docker pull osname(ubuntu)-download image
+dockers run -it(interactive) -d(run it as a background process) osname(ubuntu)-it will give you  large number of charcaters(to create a new container)
+docker exec -it containerid bash -to enter inside the container
+exit -to come out of the container and then commit
+docker commit containername(docker hub name)/jsptest1 -create an images out of a container (which is modified by you and then you want to save the container)
+docker login - to login into your dockerhub(there you want to enter your docker hub username and password)
+docker push containername(dockerhub name/jsptest1) -moves or store the container into your docker hub
+docker tag source(jsptest2) destination(dockerhubname/jsptest2)-creating a copy of container
+apt-get install apache2- installing apache
+service apache2 start -starting the apache
+ps -ef -listing the services
+ps -ef | grep apache2- where the word apache2 is they are displayed
+ps -ef | wc -l -how many lines are present
+cat ports.conf -the port number of s/w
+we can't change port or mapping after starting so we need to do it before starting service
+docker run -it -p(publish) 80 80(port of base os  and guest binaries) -d osname(ubuntu)-to mapping  
+
+
+docker file
+  it will create and modify(IMAGE) by writing simple script(simple info)
+
+scp-secure copy
+ volumes used to copy the files inside or outside the system
+bind volumes(no name)(is customed to server) and docker volumes(named volumes)(always use docker voulmes)
+docker volume create test(name) -to create a volume
+docker volume inspect test(name)-to know where it present( it managed by dockers)
+-v used to mount the file
+docker run -it -v /root/foldername(source):/name(shortcut name) -d osname-bind volume(doesn't managed by anyone)
+docker volume create <volumename>-create a volume
+docker volume remove <volumename>-remove avolume(we need to stop the volume and then remove)
+docker volume prune
+
+================================================================================================================================
 Commands:
   attach      Attach local standard input, output, and error streams to a running container
   commit      Create a new image from a container's changes
