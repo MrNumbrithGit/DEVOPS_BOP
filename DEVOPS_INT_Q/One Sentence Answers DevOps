@@ -1,1 +1,39 @@
+what is GIT?
+*git is a local VCS software that enables developers to save snapshots of their projects over time. It’s generally best for individual use.
+
+what is github ?
+*GitHub is a web-based platform that incorporates git’s version control features so they can be used collaboratively. It also includes project and team management features, as well as opportunities for networking and social coding.
+
+What is Linux?
+LINUX is an operating system or a kernel distributed under an open-source license. Its functionality list is quite like UNIX. The kernel is a program at the heart of the Linux operating system that takes care of fundamental stuff, like letting hardware communicate with software.
+
+what is devops ?
+DevOps is the combination of cultural philosophies, practices, and tools that increases an organization’s ability to deliver applications and services at high velocity: evolving and improving products at a faster pace than organizations using traditional software development and infrastructure management processes. This speed enables organizations to better serve their customers and compete more effectively in the market.
+
+what is maven ?
+Maven is a powerful project management tool that is based on POM (project object model). It is used for projects build, dependency and documentation.
+It simplifies the build process like ANT. But it is too much advanced than ANT.
+
+what is jenkins ?
+Jenkins is an open-source automation tool written in Java with plugins built for Continuous Integration purposes. Jenkins is used to build and test your software projects continuously making it easier for developers to integrate changes to the project, and making it easier for users to obtain a fresh build. It also allows you to continuously deliver your software by integrating with a large number of testing and deployment technologies.
+
+what is jfrog?
+Artifactory is a repository manager created by JFrog. A repository manager is a dedicated server application designed to manage binary components for the application that we build.
+Using a repository manager is one of the best practice for using any build tools, whether we use maven, Gradle, or Ant.
+
+What is AWS?
+The full form of AWS is Amazon Web Services. It is a platform that offers flexible, reliable, scalable, easy-to-use and, cost-effective cloud computing solutions.
+
+AWS is a comprehensive, easy to use computing platform offered Amazon. The platform is developed with a combination of infrastructure as a service (IaaS), platform as a service (PaaS) and packaged software as a service (SaaS) offerings.
+
+what is jacoco ?
+ Code coverage is a software metric used to measure how many lines of our code are executed during automated tests.
+ a code coverage reports generator for Java projects.
+
+Java code coverage tools are of two types: first, tools that add statements to the Java source code and require its recompilation. Second, tools that instrument the bytecode, either before or during execution. The goal is to find out which parts of the code are tested by registering the lines of code executed when running a test.
+
+
+
+
+
 
