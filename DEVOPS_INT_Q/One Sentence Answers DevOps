@@ -1,3 +1,13 @@
+Git:              Version control system for tracking changes in code repositories collaboratively.
+Jenkins:          Build orchestration Tool OR Automation server for building, testing, and deploying software projects continuously.
+Docker:           Platform for developing, shipping, and running applications in containers.
+Kubernetes (K8s): Container orchestration platform for automating deployment, scaling, and management.
+Ansible:          Automation tool for configuration management, application deployment, and task orchestration.
+Terraform:        Infrastructure as Code tool to provision and manage cloud resources programmatically.
+Prometheus:       Monitoring system for collecting and querying metrics from applications and services.
+Grafana:          Visualization and monitoring tool for creating dashboards from various data sources.
+Maven:            Build automation and project management tool for Java-based projects.
+
 what is GIT?
 *git is a local VCS software that enables developers to save snapshots of their projects over time. It’s generally best for individual use.
 
