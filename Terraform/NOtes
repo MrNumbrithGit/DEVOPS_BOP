@@ -1,0 +1,313 @@
+IAAC
+
+Terraform is a tool for creating and managing cloud resources through code.Terraform users define and enforce infrastructure configurations by using a JSON-like 
+configuration language called HCL (HashiCorp Configuration Language).
+
+Terraform is a tool used for infrastructure as code (IAC) that helps you create, manage, and update your cloud resources (e.g., servers, databases, and networks)
+ in a declarative way. With Terraform, you can define your infrastructure requirements as code, which allows you to version control, collaborate, and reuse your 
+ infrastructure configurations. When you run Terraform, it creates a plan that shows what resources will be created or modified, and you can apply that plan to
+ make the changes to your infrastructure. Terraform supports multiple cloud providers and allows you to manage complex infrastructure setups easily.
+ 
+ 
+WHY Terraform ?
+Terraform allows you to define and manage infrastructure as code.
+Terraform supports multiple cloud providers.
+Terraform uses a declarative configuration syntax.
+Terraform provides a unified way to manage different types of resources.
+Terraform enables automation of infrastructure creation and management. 
+Scalability: Terraform is designed to scale with your infrastructure needs
+Security: Terraform provides security features, such as encrypted state storage and access control, to help you secure your infrastructure code and configurations.
+
+
+=======================================================================
+Access key
+AKIAUOECXECRSOCJWJZQ     
+
+Secret access key
+uslFo1wKQE4uWWbeneiOOFPoDheZaU2y525T8ERV
+
+Env var setup for access (https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+sudo apt-get update
+export AWS_ACCESS_KEY_ID="AKIAUOECXECRSOCJWJZQ"
+export AWS_SECRET_ACCESS_KEY="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"
+export AWS_REGION="us-west-2"
+$ terraform plan
+
+=======================================================================
+
+provider "aws" {
+  region     = "us-west-2"
+  access_key = "my-access-key"
+  secret_key = "my-secret-key"
+}
+
+=======================================================================
+COMPARES WHAT IS THERE IN TERRAFORM FILE AND STATE FILE.
+CREATE 
+
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance  (AWS EC2 launch)
+
+main.tf    ---> FILE NAME WITH .TF
+
+=======================================================================
+provider "aws" {
+  region     = "us-west-2"
+}
+resource "aws_instance" "my_ubuntu" {
+  ami           = "ami-0db245b76e5c21ca1"
+  instance_type = "t3.micro"
+  key_name = "OregonKeyPair"
+  tags = {
+    Name = "My_Ubuntu_by_terraform"
+        Owner = "BopannaTest"
+  }
+}
+
+resource "aws_instance" "instance2" {
+  ami           = "ami-0db245b76e5c21ca1"
+  instance_type = "t2.micro"
+  key_name = "OregonKeyPair"
+  tags = {
+    Name = "Instance 2"
+  }
+}
+=======================================================================ami-0db245b76e5c21ca1
+ami-0aa2b7722dc1b5612
+
+# SAVE FILE AND RUN THE COMMAND
+
+terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding latest version of hashicorp/aws...
+- Installing hashicorp/aws v4.64.0...
+- Installed hashicorp/aws v4.64.0 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+
+# TO CHECK WHAT WILL OUR HCL (HASHICORP CONFIGURATION LANGUAGE) FILE WILL DO , WILL SHOW IN VERBOSE MODE (IN DETAIL).
+
+terraform plan
+
+# TO RUN THE ACTUAL CODE FOR IMPLIMENTATION 
+
+terraform apply
+
+
+====================================================
+UPDATE
+# If you want any change in configuration (HCL) ,We can change.Thats how it will show.
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+# Change of key pair 
+Will destroy old and build new EC2.
+key_name ="OregonKeyPair"
+
+# Change of instance type will stop the EC2 and start again with change.
+
+====================================================
+DESTROY
+
+# Remove the part of code from the file (COMPARES WHAT IS THERE IN TERRAFORM FILE AND STATE FILE.)
+
+terraform destroy
+
+
+====================================================
+
+We can attach user data to the instance 
+
+resource "aws_instance" "web" {
+  ami                    = "ami-0c9bfc21ac5bf10eb" // Amazon Linux2
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = [aws_security_group.web.id]
+  user_data              = <<EOF
+#!/bin/bash
+yum -y update
+yum -y install httpd
+MYIP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
+echo "<h2>WebServer with PrivateIP: $MYIP</h2><br>Built by Terraform" > /var/www/html/index.html
+service httpd start
+chkconfig httpd on
+EOF
+
+####and other SG and VPC details####
+
+====================================================
+
+We can also attach user data to the instance as a external file 
+
+ user_data              = file("user_data.sh") // Static File  , file path
+
+====================================================
+
+user_data.sh.tpl   --> This template can be used in tf code ,(https://github.com/adv4000/terraform_certified/blob/master/Lab-04/main.tf)
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+cat <<EOF > /var/www/html/index.html
+<html>
+<h2>Built by Power of <font color="red">Terraform</font></h2><br>
+Server Owner is: ${f_name} ${l_name} <br>
+%{ for x in names ~}
+Hello to ${x} from ${f_name}<br>
+%{ endfor ~}
+<p>PrivateIP: $MYIP
+</html>
+EOF
+
+====================================================
+
+DYNAMIC BLOCKS
+
+# Code reuseablity which can look <Where you need to craete multiple SGs> loop it with port number.
+provider "aws" {
+  region     = "us-west-2"
+}
+
+  dynamic "ingress" {
+    for_each = ["8000", "9000", "7000", "1000"]
+    content {
+      description = "Allow port UDP" 
+      from_port   = ingress.value
+      to_port     = ingress.value        #nameoftheblock.value
+      protocol    = "udp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+====================================================
+
+ELASTICIP AND LIFECYCLE TO REDUCE DOWNTIME
+
+resource "aws_eip" "web" {
+  vpc      = true  # Need to be added in new versions of AWS Provider
+  instance = aws_instance.web.id
+  tags = {
+    Name  = "EIP for WebServer Built by Terraform"
+    Owner = "BOPANNA"
+  }
+}
+
+resource "aws_instance" "web" {
+  ami                         = "ami-07a0da1997b55b23e" // Amazon Linux2
+  instance_type               = "t3.micro"
+  vpc_security_group_ids      = [aws_security_group.web.id]
+  user_data                   = file("user_data.sh") // Static File
+  user_data_replace_on_change = true                 # Added in the new AWS provider!!!
+  tags = {
+    Name  = "WebServer Built by Terraform"
+    Owner = "Denis Astahov"
+  }
+
+  lifecycle {
+    create_before_destroy = true   # This will create the instance first then delete the old ,to prevent down time.
+  }
+}
+
+====================================================
+
+# IMPLICIT DEPENDENCY - BY REFERENCE ANOTHER RESOURCE ATTRIBUTE
+
+When we are creating multiple servers at a time (https://github.com/adv4000/terraform_certified/blob/master/Lab-07/main.tf) terraform will randomly creates the
+servers.
+
+
+
+# EXPLICIT DEPENDENCY - BY SPECIFY depend_on = []
+
+resource "aws_instance" "my_server_web" {
+  ami                    = "ami-0bd39c806c2335b95"
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = [aws_security_group.general.id]
+  tags                   = { Name = "Server-Web" }
+
+  depends_on = [
+    aws_instance.my_server_db,
+    aws_instance.my_server_app           
+  ]                                          # So in here , web server will be created only after DB and APP servers are created.
+}
+
+resource "aws_instance" "my_server_app" {
+  ami                    = "ami-0bd39c806c2335b95"
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = [aws_security_group.general.id]
+  tags                   = { Name = "Server-App" }
+
+  depends_on = [aws_instance.my_server_db]
+}                                           # Even here after the DB server is created.
+
+resource "aws_instance" "my_server_db" {                         #But here it is IMPLICIT
+  ami                    = "ami-0bd39c806c2335b95"                   
+  instance_type          = "t3.micro"  
+  vpc_security_group_ids = [aws_security_group.general.id]               
+  tags                   = { Name = "Server-DB" }
+}
+
+
+====================================================
+
+
+OUTPUTS
+
+Lets take a example where we dont have access to the console ,but we need to the details of the resource.At that time OUTPUT will help.
+
+This shows the details of the resource in the output screen.
+
+
+output "my_securitygroup_id" {
+  description = "Security Group ID for my Servers"
+  value       = aws_security_group.general.id
+}
+
+/*
+output "my_securitygroup_all_detais" {
+  description = "All the details of my Secueity Group for my Servers"
+  value       = aws_security_group.general
+}
+*/
+output "web_private_ip" {
+  description = "Only the IP"                              #All the attributes can be found (https://github.com/MrNumbrithGit/DEVOPS_BOP/blob/main/Terraform/aws_instance.txt)
+  value = aws_instance.my_server_web.private_ip
+}
+
+
+====================================================
+
+GENERATE, STORE AND RETRIEVE PASSWORD USING SSM PARAMETER STORE
+
+username             = "administrator"
+  password             = data.aws_ssm_parameter.rds_password.value
+}
+
+// Generate Password
+resource "random_password" "main" {
+  length           = 20
+  special          = true #   Default: !@#$%&*()-_=+[]{}<>:?
+  override_special = "#!()_"
+}
+
+// Store Password
+resource "aws_ssm_parameter" "rds_password" {
+  name        = "/prod/prod-mysql-rds/password"
+  description = "Master Password for RDS Database"
+  type        = "SecureString"
+  value       = random_password.main.result
+}
+
+// Retrieve Password
+data "aws_ssm_parameter" "rds_password" {
+  name       = "/prod/prod-mysql-rds/password"
+  depends_on = [aws_ssm_parameter.rds_password]
+}
+
