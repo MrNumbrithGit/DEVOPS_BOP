@@ -1,0 +1,425 @@
+What is the purpose of the monitor stage in DevOps?
+a.
+Identifying and resolving issues
+b.
+All of the above
+Very nice you answer is correct
+c.
+Collecting and analyzing application performance data
+d.
+Ensuring system availability and reliability
+Feedback
+The correct answer is: All of the above
+
+============================================================
+
+Question 2
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+What is the primary goal of Continuous Integration (CI)?
+a.
+To promote manual testing and isolation
+b.
+To increase project costs
+c.
+To extend release cycles
+d.
+To integrate code changes frequently and detect issues early
+Very nice you answer is correct
+Feedback
+The correct answer is: To integrate code changes frequently and detect issues early
+
+============================================================
+
+Question 3
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+Which concept promotes the use of small, frequent code changes in DevOps?
+
+a.
+c) Continuous integration
+Very nice you answer is correct
+
+b.
+d) Waterfall methodology
+
+c.
+b) Monolithic architecture
+
+d.
+a) Microservices
+Feedback
+The correct answer is: c) Continuous integration
+
+============================================================
+
+Question 4
+IncorrectMark 0.0 out of 1.0Not flaggedFlag question
+Question text
+Which software development methodology encourages self-organizing teams and adaptive planning?
+
+a.
+Waterfall
+
+b.
+DevOps
+Not correct answer
+
+c.
+Agile
+
+d.
+Kanban
+Feedback
+The correct answer is: Agile
+
+============================================================
+
+Question 5
+IncorrectMark 0.0 out of 1.0Not flaggedFlag question
+Question text
+Which stage of the DevOps lifecycle involves continuous improvement and optimization of software and processes?
+
+a.
+Code
+
+b.
+Optimize
+
+c.
+Test
+Not correct answer
+
+d.
+Deploy
+Feedback
+The correct answer is: Optimize
+
+============================================================
+
+Question 6
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+. Why is it important to embrace a culture of continuous improvement in DevOps?
+
+a.
+It reduces collaboration and communication
+
+b.
+It increases project costs
+
+c.
+It allows teams to learn from failures and enhance processes
+Very nice you answer is correct
+
+d.
+It decreases efficiency
+Feedback
+The correct answer is: It allows teams to learn from failures and enhance processes
+
+============================================================
+
+Question 7
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+Which stage of the DevOps lifecycle involves automating software deployment processes?
+
+a.
+Deploy
+Very nice you answer is correct
+
+b.
+Operate
+
+c.
+Plan
+
+d.
+Monitor
+Feedback
+The correct answer is: Deploy
+
+============================================================
+
+Question 8
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+. Which of the following is a benefit of implementing DevOps practices?
+
+a.
+Slower time to market
+
+b.
+Longer release cycles
+
+c.
+Increased software quality
+Very nice you answer is correct
+
+d.
+Decreased collaboration
+Feedback
+The correct answer is: Increased software quality
+
+============================================================
+
+Question 9
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+. What is a key advantage of implementing a comprehensive deployment pipeline in DevOps?
+
+a.
+It enables automated and reliable software deployments
+Very nice you answer is correct
+
+b.
+It slows down the development process
+
+c.
+It increases project costs
+
+d.
+It reduces collaboration between teams
+Feedback
+The correct answer is: It enables automated and reliable software deployments
+
+============================================================
+
+Question 10
+IncorrectMark 0.0 out of 1.0Not flaggedFlag question
+Question text
+. How does DevOps support better visibility and control over software development and operations?
+
+a.
+By extending release cycles
+
+b.
+By providing real-time insights and analytics
+
+c.
+By increasing project costs
+
+d.
+By promoting isolation between teams
+Not correct answer
+Feedback
+The correct answer is: By providing real-time insights and analytics
+
+============================================================
+
+Question 11
+IncorrectMark 0.0 out of 1.0Not flaggedFlag question
+Question text
+What is the purpose of configuration management in DevOps?
+
+a.
+Automating the software configuration process
+
+b.
+Automating the deployment process
+
+c.
+Automating the testing process
+
+d.
+Automating the infrastructure provisioning
+Not correct answer
+Feedback
+The correct answer is: Automating the software configuration process
+
+============================================================
+
+Question 12
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+What is the primary goal of Continuous Delivery (CD)?
+
+a.
+To extend release cycles
+
+b.
+To increase project costs
+
+c.
+To promote manual testing and isolation
+
+d.
+To automate the delivery of software to production environments
+Very nice you answer is correct
+Feedback
+The correct answer is: To automate the delivery of software to production environments
+
+============================================================
+
+Question 13
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+Which type of automation is used for provisioning and managing infrastructure resources?
+
+a.
+Continuous Integration (CI)
+
+b.
+Release Automation
+
+c.
+Infrastructure as Code (IaC)
+Very nice you answer is correct
+
+d.
+Continuous Delivery (CD)
+Feedback
+The correct answer is: Infrastructure as Code (IaC)
+
+============================================================
+
+Question 14
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+What is the primary goal of the monitor stage in DevOps?
+
+a.
+Collecting and analyzing application performance data
+
+b.
+Ensuring system availability and reliability
+
+c.
+Identifying and resolving issues
+
+d.
+All of the above
+Very nice you answer is correct
+Feedback
+The correct answer is: All of the above
+
+============================================================
+
+Question 15
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+What is a key advantage of DevOps in terms of software quality?
+
+a.
+Improved software stability and reliability
+Very nice you answer is correct
+
+b.
+Longer release cycles
+
+c.
+Decreased collaboration between teams
+
+d.
+Slower time to market
+Feedback
+The correct answer is: Improved software stability and reliability
+============================================================
+
+Question 16
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+What is the purpose of infrastructure as code in DevOps?
+
+a.
+To enable continuous deployment
+
+b.
+To ensure high availability of applications
+
+c.
+To automate software testing
+
+d.
+To manage and provision infrastructure through code
+Very nice you answer is correct
+Feedback
+The correct answer is: To manage and provision infrastructure through code
+
+============================================================
+
+Question 17
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+Which software development methodology emphasizes reducing handoffs and delays between development and operations?
+
+a.
+Agile
+
+b.
+Kanban
+
+c.
+Waterfall
+
+d.
+DevOps
+Very nice you answer is correct
+Feedback
+The correct answer is: DevOps
+
+============================================================
+
+Question 18
+IncorrectMark 0.0 out of 1.0Not flaggedFlag question
+Question text
+What is the purpose of containerization in DevOps?
+
+a.
+To isolate application dependencies
+
+b.
+To improve collaboration between teams
+
+c.
+To automate deployment processes
+
+d.
+To ensure scalability of applications
+Not correct answer
+Feedback
+The correct answer is: To isolate application dependencies
+
+============================================================
+
+Question 19
+IncorrectMark 0.0 out of 1.0Not flaggedFlag question
+Question text
+. What is the goal of the Test stage in the DevOps lifecycle?
+
+a.
+To plan the software development process
+
+b.
+To validate software functionality through testing
+
+c.
+To integrate code changes frequently and detect issues early
+Not correct answer
+
+d.
+To deploy the software to production environments
+Feedback
+The correct answer is: To validate software functionality through testing
+
+============================================================
+
+Question 20
+CorrectMark 1.0 out of 1.0Not flaggedFlag question
+Question text
+What is the purpose of the Continuous Deployment stage in the DevOps lifecycle?
+
+a.
+To automate the deployment of software to production environments
+Very nice you answer is correct
+
+b.
+To plan the software development process
+
+c.
+To integrate code changes frequently and detect issues early
+
+d.
+To validate software functionality through testing
+Feedback
+The correct answer is: To automate the deployment of software to production environments
