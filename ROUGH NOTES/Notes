@@ -1,1 +1,557 @@
-Ecplise --> Workspace (C:\Users\numbrith\Desktop\STARAGILE__CLASS) -->
+
+
+
+WATER FALL MODEL
+	The Waterfall Model is a traditional and linear software development methodology.
+	The name "waterfall" comes from the idea that each phase of the development process flows steadily downwards,
+	just like a waterfall, and one phase must be completed before moving on to the next.
+
+		Requirements Gathering and Analysis
+		System Design
+		Implementation (Coding)
+		Testing
+		Deployment
+		Maintenance
+____________________________________
+
+AGILE MODEL
+	Instead of trying to plan and build the entire software project at once, 
+	Agile breaks it into smaller, manageable parts called "iterations" or "sprints." 
+	Each iteration involves a short development cycle where a small piece of the software is designed, coded, tested, and delivered.
+
+		- It is possible to achive Contineous Intigration
+									Contineous Testing
+									Contineous Delivery
+									
+									But NOT Contineous Deployment.
+______________________________
+
+DEVOPS PROCESS/STRATERGY
+
+DevOps is a PROCESS  that combine software development (Dev) and IT operations (Ops) to foster collaboration, communication, and automation 
+throughout the entire software development and delivery lifecycle.
+That includes
+			Continuous Development
+			Continuous Intigration
+			Continuous Testing
+			Continuous Delivery
+			Continuous Deployment
+			Continuous Monitoring
+	
+	
+	Features of DevOps
+			Automation- Completely automate the SDLC.
+			Collaboration - DEV and Oparation(IT) work togather to make the project productive.
+			Integration - automating the build, testing, and deployment processes, enabling frequent and reliable software releases
+			Infrastructure as Code - 	Severs are managed and provisioned using code and automation.That improves scalablility and Consistency without any ERRORS.
+	
+	Benifites of DevOps
+			Faster Software Delivery
+			Enhanced Quality and Stability
+			Improved Collaboration
+			Better resource utilization
+			scalability and availability.
+	
+	Stages of Devops
+				Planning
+				Coding
+				Building
+				Testing
+				Releasing
+				Deploying
+				Operating
+				Monitoring
+				
+What is meant by build automation?
+Build automation is the process of automating the retrieval of source code, compiling it
+into binary code, executing automated tests, and publishing it into a shared, centralized
+repository. Build automation is critical to successful DevOps processes	
+
+___________________________
+
+Continuous Development 
+					==> It is the capability of the Development Team to Continuously develop the Source Code.
+Continuous Integration 
+					==> It is the process of Continuously Integrating the code for further Testing
+Continuous Testing --> 
+					==> It is a process of Continuously Testing the changes
+Continuous Delivery/Deployment --> 
+					==> Both Continuous Delivery/Deployment are used to release the product to Production Environment
+	Continuous Delivery  
+					==> Will be be promoted to Production Environment with manual Approvals.
+	Continuous Deployment 
+					==> Starting from Application Build to Production Release - Everything is completely automated, without any downtime. 				
+Continuous Monitoring 
+					==> MOnitoring the production environments with given tools.
+
+
+Compile + Uint test + create artifacts
+___________________________
+
+Continuous Development
+	
+Continuous Intigration
+	
+Continuous Testing
+	
+Continuous Delivery
+	
+Continuous Deployment
+	
+Continuous Monitoring			
+___________________________
+
+CI/CD Pipeline
+
+
+1. Continuous Development:
+   - Writing code
+   - Code reviews
+   - Feature branching and merging
+   - Developing and updating documentation
+   - Addressing bug reports and issues
+
+2. Continuous Integration:
+   - Automatic code compilation
+   - Running unit tests
+   - Code quality checks (linting)
+   - Integration testing
+   - Version control system (VCS) integration (e.g., Git)
+
+3. Continuous Testing:
+   - Running various levels of tests (unit, integration, system, performance, security)
+   - Test case creation and maintenance
+   - Automated test execution
+   - Regression testing
+   - Test environment setup and management
+
+4. Continuous Delivery:
+   - Packaging and artifact creation
+   - Deployment to staging environments
+   - User acceptance testing (UAT)
+   - Automated acceptance testing
+   - Release candidate preparation
+
+5. Continuous Deployment:
+   - Automatic deployment to production environments
+   - Canary releases or feature toggles for controlled rollouts
+   - Blue-green deployments or rolling updates
+   - Monitoring for issues and rollbacks
+   - Version control and release tagging
+
+6. Continuous Monitoring:
+   - Real-time application and infrastructure monitoring
+   - Log analysis and aggregation
+   - Performance monitoring and optimization
+   - Security monitoring and vulnerability scanning
+   - Incident response and alerting
+
+___________________________
+Various Cloud Services 
+				IAAS
+				PAAS
+				SAAS
+___________________________
+	
+Deployment Model ::
+		
+			Public Cloud --> 
+			Private Cloud
+			Hybrid Cloud  --> Mix of on-premisis and Public or private cloud.
+			Community Cloud --> 
+___________________________	
+		
+The AWS Servers are located in different geographical locations!
+								Regions
+									Availability Zones
+										Data centers
+											Collection Servers 
+													Virtual Machines (EC2 Instances)
+___________________________
+
+Git: Version control system for tracking changes in code repositories collaboratively.
+Jenkins: Build orchestration Tool OR Automation server for building, testing, and deploying software projects continuously.
+Docker: Platform for developing, shipping, and running applications in containers.
+Kubernetes (K8s): Container orchestration platform for automating deployment, scaling, and management.
+Ansible: Automation tool for configuration management, application deployment, and task orchestration.
+Terraform: Infrastructure as Code tool to provision and manage cloud resources programmatically.
+Prometheus: Monitoring system for collecting and querying metrics from applications and services.
+Grafana: Visualization and monitoring tool for creating dashboards from various data sources.
+Maven: Build automation and project management tool for Java-based projects.
+___________________________
+ssh -i "classkeypair.pem" ubuntu@ec2-100-24-61-71.compute-1.amazonaws.com
+
+
+Inbound: Data incoming to AWS resources; traffic from external sources to your services.
+Outbound: Data leaving AWS resources; traffic from your services to external destinations.
+___________________________
+
+Port 22: SSH (Secure Shell) - Used for secure remote access to servers, a fundamental tool for managing and configuring servers in a DevOps context.
+
+Port 80: HTTP (Hypertext Transfer Protocol) - Often used for serving web applications, APIs, and other web-related services.
+
+Port 443: HTTPS (Hypertext Transfer Protocol Secure) - Used for secure communication of web applications and services over SSL/TLS encryption.
+
+Port 8080: Often used as an alternative HTTP port for serving web applications. It's commonly used for development and testing environments.
+
+___________________________                          ___________________________
+___________________________ ----AWS DEVOPS TOOLS---- ___________________________
+
+AWS CodePipeline: Continuous integration and delivery service, automating build, test, and deployment pipelines for software development.
+
+AWS CodeBuild: Fully managed build service that compiles source code, runs tests, and produces deployable software artifacts.
+
+AWS CodeDeploy: Automates application deployments to a variety of compute services including EC2, Lambda, and ECS, ensuring consistency and reliability.
+
+AWS CodeCommit: Source control service hosting Git repositories, providing secure and scalable collaboration for software development teams.
+
+AWS CodeArtifact: Package management service for storing, managing, and sharing software packages across development teams securely and efficiently.
+
+==========================================================================================================
+
+add multiple user in user group?
+sudo usermod -a -G groupname username
+
+==========================================================================================================
+Program VS Scripting 
+
+Program is used for developing a bussiness logic like big packages 
+Scripting is used for Automating a manual process.
+
+
+#!/bin/bash
+echo "Please enter the number:"
+read num
+
+function prime{
+	for((i=2; i<=num/2; i++))
+	do
+       if [ $((num%i)) -eq 0 ]
+       then
+          echo "$num is not a prime number."
+          exit
+       fi
+	done
+    echo "$num is a prime number."
+}
+prime
+
+==========================================================================================================
+Maven is a build automation tool that helps in install all the dependes/libraries.
+
+Simple Java console application
+			New ==> Java Project ==> Create Package ==> Create class ==> Run as Java Application
+Java Dynamic Web Application
+			New ==> Dynamic Web project ==> Create HTML file in -WebApp- ==>  Run On server
+Java Maven Console Application
+		New ==> Maven project ==> Change -App.java- ==> Run as Java Application
+Java Maven Web Application
+		New ==> Maven Project ==> Add tomcat dependency in pom.xml ==> Run On server
+		
+Java SpringBoot application
+		New 
+==========================================================================================================
+Junit or Unit Testing
+
+Checks all the methods are funtioning as expected without errors.
+Code Coverage is that how many % of code or the funtions are covered. If less than 100% can't be moved to next phase.
+
+New ==> Java project ==> under java packages create the class java code
+					==> under java packages create a new==> Junit test case.
+
+
+==========================================================================================================
+To perform ****SELENIUM QA**** testing with TestNG(Better reports)
+Install TestNG on eclipse 
+
+Create a simple mvn project ==> edit few dependency and plugins https://docs.google.com/document/d/1XnN_W9Ui9jTCW6IXLlaAqLDyPuY-XxH6TsbnORduXGg/edit?usp=sharing ==> Save 
+create testclass under src/test/java ==> Write selenium code ==> Save.
+Add wedriver ==> create a folder ==> webdriver , add webdriver.exe file (copy paste from local).
+mvn build as dry run
+Run program as TESTNG ==> Report will be generated ==> Find emailable report.
+
+
+https://www.saucedemo.com/v1/
+
+==========================================================================================================
+Maven sample project (quickstart)
+ 
+ Eclipse ==> New ==> Maven project ==> archetype (smple-quickstart..) ==> create
+ Run as ==> a. mvn clean
+			b. mvn compile
+			c. mvn test
+			d. mvn package
+			e. mvn install
+			f. mvn clean package
+			
+Maven SpringBoot 
+	Springboot Initializer ==> add dependency  spring web & JPA with H2 dependency ==>  Download
+
+	Eclipse ==> Import ==> Exsiting Maven project ==> Dry Run ( Might not work) ==> Under static ,add html file ==> run a maven build ==> Run Java Application
+	        ==> open browser localhost/8080 .
+==========================================================================================================
+
+DBMS
+
+Database: A structured repository for efficiently storing, retrieving, and managing data.
+Data: Raw information in various forms, valuable when organized and processed.
+Database Management System (DBMS): Software enabling database creation, maintenance, and manipulation.
+Relational DBMS: A DBMS organizing data into tables with defined relationships, often using SQL for complex queries and data integrity.
+
+1. **Data Query Language (DQL)**:
+   - **SELECT**: Used to retrieve data from one or more tables in a database. It is primarily used for querying and fetching data.
+
+2. **Data Definition Language (DDL)**:
+   - **CREATE**: Used to create database objects like tables, indexes, and views.
+   - **ALTER**: Allows modification of existing database structures, such as adding, modifying, or deleting columns in a table.
+   - **DROP**: Deletes database objects like tables, indexes, or views.
+   - **RENAME**: Renames an existing database object (e.g., table or column) in some RDBMS systems.
+   - **COMMENT**: Adds comments or descriptions to database objects for documentation purposes.
+   - **TRUNCATE**: Removes all records from a table while keeping the table structure intact.
+
+3. **Data Manipulation Language (DML)**:
+   - **INSERT**: Adds new records into a table.
+   - **UPDATE**: Modifies existing records in a table.
+   - **DELETE**: Removes records from a table.
+   
+4. **Data Control Language (DCL)**:
+   - **GRANT**: Provides specific privileges (e.g., SELECT, INSERT) to database users.
+   - **REVOKE**: Revokes previously granted privileges, restricting user access.
+
+5. **Transaction Control Language (TCL)**:
+   - **COMMIT**: Saves all pending transactions to the database.
+   - **ROLLBACK**: Reverts changes made during the current transaction to its previous state.
+   - **SAVEPOINT**: Sets a point within a transaction to which you can later roll back.
+
+SQL allows users to interact with databases in a structured and efficient manner, making it a crucial tool for managing and querying relational databases.
+
+
+
+==========================================================================================================
+
+___________________________             ___________________________
+___________________________ ----GIT---- ___________________________
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone             Clone a repository into a new directory
+   init              Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add               Add file contents to the index
+   mv                Move or rename a file, a directory, or a symlink
+   restore           Restore working tree files
+   rm                Remove files from the working tree and from the index
+   sparse-checkout   Initialize and modify the sparse-checkout
+
+examine the history and state (see also: git help revisions)
+   bisect            Use binary search to find the commit that introduced a bug
+   diff              Show changes between commits, commit and working tree, etc
+   grep              Print lines matching a pattern
+   log               Show commit logs
+   show              Show various types of objects
+   status            Show the working tree status
+
+grow, mark and tweak your common history
+   branch            List, create, or delete branches
+   commit            Record changes to the repository
+   merge             Join two or more development histories together
+   rebase            Reapply commits on top of another base tip
+   reset             Reset current HEAD to the specified state
+   switch            Switch branches
+   tag               Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch             Download objects and refs from another repository
+   pull              Fetch from and integrate with another repository or a local branch
+   push              Update remote refs along with associated objects
+
+___________________________
+
+The Git workflow typically involves a series of commands to manage and track changes to your codebase. Here's a basic Git workflow with commonly used commands:
+
+1. **Initialize a Repository:**
+   - `git init`: Creates a new Git repository in the current directory.
+
+2. **Clone a Repository:**
+   - `git clone <repository_url>`: Copies an existing Git repository from a remote location to your local machine.
+
+3. **Stage Changes:**
+   - `git add <file>`: Stages a file or changes for the next commit.
+   - `git add .` or `git add --all`: Stages all changes in the current directory.
+
+4. **Commit Changes:**
+   - `git commit -m "Commit message"`: Saves staged changes with a descriptive message.
+
+5. **View Status:**
+   - `git status`: Displays the status of your working directory, showing modified, staged, and untracked files.
+
+6. **Review History:**
+   - `git log`: Shows a chronological history of commits.
+   - `git log --oneline`: Displays a simplified commit history.
+   - git log  --stat   : Extra stat info will be show 
+   - git show <commit_id>  : Info of record level
+   - git log -2   : To display last 2 commit log.
+   - git diff   : Show changes between commits, commit and working tree, etc
+
+7. **Create and Switch Branches:**
+   - `git branch <branch_name>`: Creates a new branch.
+   - `git checkout <branch_name>`: Switches to an existing branch.
+   - `git checkout -b <new_branch_name>`: Creates and switches to a new branch in one command.
+   
+14. **Branch Management:**
+    - `git branch -d <branch_name>`: Deletes a branch (if merged).
+    - `git branch -D <branch_name>`: Deletes a branch (regardless of merge status).
+	
+8. **Merge Branches:**
+   - `git merge <TargetBranch_name>`: Combines changes from one branch into another.
+
+9. **Pull from Remote Repository:**
+   - `git pull`: Fetches changes from a remote repository and merges them into your current branch.
+   
+12. **Fetch Remote Changes:**
+    - `git fetch`: Retrieves changes from a remote repository without merging.
+
+10. **Push to Remote Repository:**
+    - `git push`: Sends your local commits to a remote repository.
+	
+	- `git remote add origin https://github.com/MrNumbrithGit/FacebookSeleniumTest.git
+	- `git remote remove add origin https://github.com/MrNumbrithGit/FacebookSeleniumTest.git	
+	- `git push -u origin master
+	
+11. **Resolve Conflicts:**
+    - During merges, if conflicts arise, you need to manually resolve them by editing the affected files.
+
+
+13. **Undo Changes:**
+    - `git reset <file>`: Unstages changes.
+    - `git reset --soft <commit_hash>`: Moves the branch pointer to a previous commit, keeping changes staged.(File in staging)
+	-  git reset --mixed <commit_hash>: Moves the branch pointer to a previous commit, unstaging changes and keeping them in your working directory.(File in wrkng dir)
+    - `git reset --hard <commit_hash>`: Moves the branch pointer to a previous commit, discarding changes.(File Completely delete)
+	
+	- `git revert <commit_hash>`: Creates a new commit that undoes the changes made by a previous commit.
+
+
+15. **Stash Changes:**
+    - `git stash`: Temporarily saves changes without committing.
+	-  git stash save "Message" : If you dont give this , it will take old recent commit message.
+    - `git stash apply`: Applies the most recent stash.
+    - `git stash pop`: Applies the most recent stash and removes it.
+
+16. **Rebase & Squash Commits (Interactive Rebase):**
+	-  git rebase -i HEAD~<number_of_commits>: Combines multiple commits into one or more commits interactively during a rebase operation.
+											HEAD~6 ==> Interactive mode ==> Type squash for the commit you dont want show ==> comment "#" commit messages.
+	- `git rebase <base_branch>`: Moves the current branch to the tip of the `<base_branch>` and reapplies the changes made on the current branch on top of it. 
+								  Useful for keeping a linear commit history.
+	- `git merge --squash <source_branch>`: Merges changes from `<source_branch>` into the current branch, but squashes all the commits from `<source_branch>` 
+										    into a single commit.(Must Commit again)
+
+git merge : This gives us the complete picture of the commit history and branch evolution.
+git rebase : This will cleans up commit on that branch by moving commit history to the tip of the main branch.
+git squash : This will clean up all the commit making that into a single commit.
+
+Git MERGE vs REBASE vs SQUASH
+https://youtu.be/0chZFIZLR_0?si=RWXEQz2LPbXms_cn
+---------------------------------------
+Branching Stratergies
+
+Master_Branch
+	Release_Branch
+		Intregration_Branch
+			Feature1
+			Feature2
+
+#Merging will be down to up 
+
+---------------------------------------
+clone the repo --> Make changes in new branch --> push --> On github --> Compare and pull --> merge.
+
+==========================================================================================================
+ADDRESS BOOK APP
+
+Create EC2 ==> Installed git java maven tomact ==> cloned the code (addressBook)
+      apt-get update
+      java --version
+      apt install java
+      java --version
+      apt install default-jre
+      apt install maven
+      java --version
+      mvn --version
+      systemctl start tomcat9
+      systemctl status tomcat9
+	  git clone https://github.com/vikulrepo/Addressbook2.git
+	  mvn clean package
+      systemctl start tomcat9
+      systemctl status tomcat9
+	  
+	  mv /home/ubuntu/Addressbook2/target/addressbook.war /var/lib/tomcat9/webapps
+	  
+	  http://<public_ip>/addressbook/
+	
+
+Created ==> Maven quickstart ==> pom.xml added dependencies ==> Test.java code added ==> Driver added ==> 	mvn compile ==> exported (as runnable jar)
+==> used command (java -jar fbtest.jar)
+
+
+==========================================================================================================
+
+MAVEN DEPENDENCIES 
+
+https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java/4.11.0
+
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.11.0</version>
+</dependency>
+
+https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire/3.1.2
+
+<!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire -->
+<dependency>
+    <groupId>org.apache.maven.surefire</groupId>
+    <artifactId>surefire</artifactId>
+    <version>3.1.2</version>
+    <type>pom</type>
+</dependency>
+
+==========================================================================================================
+
+JENKINS 
+		- The build orchestration ###Jenkins is one of the open source build orchestration tool###
+
+Default loc  -->  var/lib/jenkins
+
+			Developer's Perspective
+				- are just consumers.
+						
+			DevOps Perspective
+			
+				Administrator :::
+				
+				- Installation of jenkins 
+				- Manage the plugins 
+				- User Management 
+				- Credential Management
+				- Tools Management 
+				- Jenkins Master/Slave - Node Configuration and Management
+				- Security Management 
+				- Backup & Recovery 
+				- Upgrade
+				- Create jenkins CI/CD Pipelines Project to onboard application
+				- Troubleshooting
+				
+				
+			Jenkins Architecture :::
+				
+				Jenkins Master / Slave Architecture :::
+				
+				Jenkins_Master 				VM 	==> To create Jenkins CI/CD Pipeline Jobs & Schedule the jobs
+					Jenkins_Slave-Node1		VM	==> Java Appln. Build ==> git, jdk, maven	# Application Build Server
+					Slave-Node2				VM	==> Python Appln. Build ==> git, python	# Application Build Server
+					Slave-Node3				VM	==> C# Appln. Build ==> git, jdk, maven	# Application Build Server
+
+			
