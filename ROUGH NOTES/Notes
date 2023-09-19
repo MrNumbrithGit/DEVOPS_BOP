@@ -1,6 +1,3 @@
-
-
-
 WATER FALL MODEL
 	The Waterfall Model is a traditional and linear software development methodology.
 	The name "waterfall" comes from the idea that each phase of the development process flows steadily downwards,
@@ -242,7 +239,7 @@ Maven is a build automation tool that helps in install all the dependes/librarie
 Simple Java console application
 			New ==> Java Project ==> Create Package ==> Create class ==> Run as Java Application
 Java Dynamic Web Application
-			New ==> Dynamic Web project ==> Create HTML file in -WebApp- ==>  Run On server
+			New ==> Dynamic Web project ==> Create HTML file in -WebApp- ==>  Run On server ==> Run with file name
 Java Maven Console Application
 		New ==> Maven project ==> Change -App.java- ==> Run as Java Application
 Java Maven Web Application
@@ -332,6 +329,13 @@ SQL allows users to interact with databases in a structured and efficient manner
 ___________________________             ___________________________
 ___________________________ ----GIT---- ___________________________
 
+
+Version Control System :::
+				
+		- Used to version control the source code. 
+		- Used to track the source code changes.
+		
+
 These are common Git commands used in various situations:
 
 start a working area (see also: git help tutorial)
@@ -381,11 +385,17 @@ The Git workflow typically involves a series of commands to manage and track cha
    - `git add <file>`: Stages a file or changes for the next commit.
    - `git add .` or `git add --all`: Stages all changes in the current directory.
 
+			git config --global user.name "MrNumbrith"
+			git config --global user.email "mrnumbrith@gmail.com"
+
 4. **Commit Changes:**
    - `git commit -m "Commit message"`: Saves staged changes with a descriptive message.
 
 5. **View Status:**
    - `git status`: Displays the status of your working directory, showing modified, staged, and untracked files.
+
+
+
 
 6. **Review History:**
    - `git log`: Shows a chronological history of commits.
@@ -424,14 +434,14 @@ The Git workflow typically involves a series of commands to manage and track cha
     - During merges, if conflicts arise, you need to manually resolve them by editing the affected files.
 
 
-13. **Undo Changes:**
-    - `git reset <file>`: Unstages changes.
-    - `git reset --soft <commit_hash>`: Moves the branch pointer to a previous commit, keeping changes staged.(File in staging)
-	-  git reset --mixed <commit_hash>: Moves the branch pointer to a previous commit, unstaging changes and keeping them in your working directory.(File in wrkng dir)
-    - `git reset --hard <commit_hash>`: Moves the branch pointer to a previous commit, discarding changes.(File Completely delete)
-	
-	- `git revert <commit_hash>`: Creates a new commit that undoes the changes made by a previous commit.
-
+13. **Undo Changes:** NOT RECOMMENDED TO USE IN SHARED REPO (reset)
+		- `git reset <file>`: Unstages changes.
+		- `git reset --soft <commit_hash>`: Moves the branch pointer to a previous commit, keeping changes staged.(File in staging)
+DEFAULT	-  git reset --mixed <commit_hash>: Moves the branch pointer to a previous commit, unstaging changes and keeping them in your working directory.(File in wrkng dir)
+		- `git reset --hard <commit_hash>`: Moves the branch pointer to a previous commit, discarding changes.(File Completely delete)
+	Use Case: Useful when you need to rework or discard changes in your working directory or reset the branch pointer.
+		- `git revert <commit_hash>`: Creates a new commit that undoes the changes made by a previous commit.
+    Use Case: Useful when you need to rework or discard changes in your working directory or reset the branch pointer.
 
 15. **Stash Changes:**
     - `git stash`: Temporarily saves changes without committing.
@@ -451,8 +461,26 @@ git merge : This gives us the complete picture of the commit history and branch 
 git rebase : This will cleans up commit on that branch by moving commit history to the tip of the main branch.
 git squash : This will clean up all the commit making that into a single commit.
 
+
+git rm <file(s)> : Removes the specified file(s) from both the working directory and the Git index.
+
+
+
 Git MERGE vs REBASE vs SQUASH
 https://youtu.be/0chZFIZLR_0?si=RWXEQz2LPbXms_cn
+
+
+
+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     --> TOKEN
+
+
+ERRORS FACED
+git remote on Ec2 instance.
+workflow ON > GitHub PAT token settings
+git remote set-url origin https://<username>:<new-personal-access-token>@github.com/<username>/<repository>.git
+git remote set-url origin https://MrNumbrithGit:<personal-access-token>@github.com/MrNumbrithGit/JavaGitest.git
+
+
 ---------------------------------------
 Branching Stratergies
 
@@ -555,3 +583,86 @@ Default loc  -->  var/lib/jenkins
 					Slave-Node3				VM	==> C# Appln. Build ==> git, jdk, maven	# Application Build Server
 
 			
+			
+
+
+
+
+
+
+Configuration of Slave Node 
+Jenkins ==> Manage Jenkins ==> Node ==> Name , PermanentUser ==> Labels (MustName) , Number of executors (No of Build Simultaniounly) 
+==> Remote root directory (Where my workspace should be created) ==> Host (Private IP address) ==> Add Credentials (Kind:SSH Username with Pvt Key) ==> ID & Discrip(Can be your choise)
+==> Add Credentials ==> Host Key Verification Strategy (Manually trusted key verification stratergy) ==> Require manual verification of initial connection (Tick)
+==> Save ............ ==> Still unsuccessfull ==> Go to the Node ==> Trust SSH host key (Yes).
+
+
+Under FreeStyle if you want run builds on NODES , (Restrict where this project can be run) Give Name of the Node.
+/home/devopsadmin/workspace/Q     This dir will be created in Slave/Node Machine.
+
+
+
+SOURSE ==
+		/home/devopsadmin/workspace/PipelineOne/target/mvn-hello-world.war
+
+DESTINATION ==
+		/var/lib/tomcat9/webapps
+		
+		
+		
+SLAVE/ WORKSPACE ----Share files----> QA SERVER
+
+	1.QA Server needs java and tomcat for project to run ,INSTALL.
+	2.Create a user , ssh key
+	3.chown -R devopsadmin /var/lib/tomcat9/webapps     From Root
+	4.To ssh using Jenkins , Plugin: publish over ssh.
+5.Manage Jenkins > System > Fill under Publish over SSH> SSH Servers (Name, Hostname[Pvt IP], username,Remote Directory (path to load)) > Advanced > Key > Success.
+	6.Configure groovy Script, Project > Configure > Pipeline Syntax > Sample Step (ssh publisher) > SSH Server Name (QA_Server) > 
+		Source file (target/mvn-hello-world.war) > Remove prefix (target/) > Remote directory (.)(What is in configuration(So its Dot)) > Generate Pipeline Script
+	7.Edit Script added the snippet under script{}
+	8.Build > Check > IP:8080/mvn-hello-world
+
+
+Build Triggers
+		
+- Build Periodic
+	Is used to schedule the job based on cron tab.
+	MINUTE HOUR DOM MONTH DOW
+	*/2 * * * *   >  At every 2nd minute
+	*/15 * * * *  > At every 15th minute
+					
+- github webhook
+	It is used to trigger the jenkins job, whenever there is any changes happened in the src_code.
+	Create- Web hook configuration in github repo.				
+		> GitHub > 	Repo > Settings > Webhooks > Payload URL :	http://54.166.164.210:8080/github-webhook/	> Content type (applicatio/json) 
+		> event type (Just the push event.) > Add webhook. >  
+			
+			
+- Poll SCM  (Only if there is changes)
+	It is used to trigger the jenkins job, based on the schedule and if there is any changes happened in the src_code.
+	Define  Cron Tab.
+	MINUTE HOUR DOM MONTH DOW
+	*/2 * * * *   >  At every 2nd minute
+	*/15 * * * *  > At every 15th minute
+	
+Email Notification Plugins
+	SMTP Server : smtp.gmail.com
+	SMTP Authentication (Tick)
+	SMTP Port :: 465
+
+
+Create a JENKINS pipelines job > run shedule every 4 hours > to clean up the workspace directory in slave machine
+
+
+pipeline {
+    agent { label 'JavaSlave' }
+
+    stages {
+        stage('CleanUp') {
+            steps {
+				sh 'cd /home/devopsadmin/'
+				sh 'rm -rf workspace/*'
+            }
+        }
+    }
+}
