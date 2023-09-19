@@ -156,11 +156,11 @@ for linux in aws docker basicsrun all the commands
 present there
 docker info-gives you the infomation about the docker
 docker images -images the already exist
-docker ps-how many containers are they or details of container or running conatiner
+docker ps  - Running container , how many containers are they or details of container or running conatiner
 docker ps -a -all containers
 docker pull osname(ubuntu)-download image
-docker run imageName    : To run in background , If there is no task to run it will exit.
-dockers run -it(interactive) -d(run it as a background process) osname(ubuntu)-it will give you  large number of charcaters(to create a new container)
+docker run imageName    : To run in foreground(attached mode) , If there is no task to run it will exit.
+dockers run -it(interactive)   /  dockers run -d(dettached mode , run it as a background process) osname(ubuntu)    :it will give you  large number of charcaters(to create a new container)
 docker exec -it containerid bash -to enter inside the container
 exit -to come out of the container and then commit
 docker commit containername(docker hub name)/jsptest1 -create an images out of a container (which is modified by you and then you want to save the container)
