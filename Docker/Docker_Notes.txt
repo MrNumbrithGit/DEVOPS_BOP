@@ -163,6 +163,9 @@ docker run imageName    : To run in foreground(attached mode) , If there is no t
 dockers run -it(interactive)   /  dockers run -d(dettached mode , run it as a background process) osname(ubuntu)    :it will give you  large number of charcaters(to create a new container)
 docker exec -it containerid bash -to enter inside the container
 exit -to come out of the container and then commit
+docker rmi ubuntu   :   To remove image (But container should be removed first)
+docker start|stop <container_name> (or <container-id>)     :   Start or stop an existing container:
+docker rm <container_name>  :  Remove a stopped container:
 docker commit containername(docker hub name)/jsptest1 -create an images out of a container (which is modified by you and then you want to save the container)
 docker login - to login into your dockerhub(there you want to enter your docker hub username and password)
 docker push containername(dockerhub name/jsptest1) -moves or store the container into your docker hub
@@ -175,7 +178,7 @@ ps -ef | wc -l -how many lines are present
 cat ports.conf -the port number of s/w
 we can't change port or mapping after starting so we need to do it before starting service
 docker run -it -p(publish) 80 80(port of base os  and guest binaries) -d osname(ubuntu)-to mapping  
-
+docker run -it -p 8080:8080 tomcat  :   <hostport>:<container_port>
 
 docker file
   it will create and modify(IMAGE) by writing simple script(simple info)
