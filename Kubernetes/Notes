@@ -1,0 +1,56 @@
+KUBERNETES
+
+
+Cluster Management:
+kubectl cluster-info: Display cluster information.
+kubectl get nodes: List all nodes in the cluster.
+kubectl describe node <node-name>: Get detailed information about a specific node.
+kubectl get pods --all-namespaces: List all pods in all namespaces.
+
+Namespace Management:
+kubectl create namespace <namespace-name>: Create a new namespace.
+kubectl get namespaces: List all namespaces.
+kubectl delete namespace <namespace-name>: Delete a namespace and its resources.
+Deployment and Scaling:
+
+kubectl create deployment <deployment-name> --image=<image-name>: Create a new deployment.
+kubectl get deployments: List all deployments.
+kubectl scale deployment <deployment-name> --replicas=<desired-replica-count>: Scale a deployment.
+kubectl rollout status deployment/<deployment-name>: Check the rollout status of a deployment.
+
+Pod Management:
+kubectl get pods: List pods in the current namespace.
+kubectl describe pod <pod-name>: Get details about a specific pod.
+kubectl delete pod <pod-name>: Delete a pod.
+kubectl exec -it <pod-name> -- <command>: Execute a command inside a running pod.
+
+Service Management:
+kubectl expose deployment <deployment-name> --port=<port>: Create a service.
+kubectl get services: List all services.
+kubectl describe service <service-name>: Get details about a service.
+kubectl delete service <service-name>: Delete a service.
+
+ConfigMaps and Secrets:
+kubectl create configmap <configmap-name> --from-file=<path-to-file>: Create a ConfigMap.
+kubectl create secret generic <secret-name> --from-literal=<key>=<value>: Create a Secret.
+kubectl get configmaps and kubectl get secrets: List ConfigMaps and Secrets.
+kubectl describe configmap <configmap-name> and kubectl describe secret <secret-name>: Get details about a ConfigMap or Secret.
+
+Monitoring and Debugging:
+kubectl top nodes and kubectl top pods: Monitor resource usage.
+kubectl logs <pod-name>: View container logs.
+kubectl describe pod <pod-name>: View events and details.
+
+Updating and Rollbacks:
+kubectl set image deployment/<deployment-name> <container-name>=<new-image>: Update a container image.
+kubectl rollout undo deployment/<deployment-name>: Rollback a deployment.
+
+YAML Configuration Files:
+kubectl apply -f <filename.yaml>: Apply a configuration file.
+kubectl get -f <filename.yaml>: Get resources from a file.
+kubectl delete -f <filename.yaml>: Delete resources from a file.
+
+Custom Resources and CRDs:
+kubectl get crd: List Custom Resource Definitions (CRDs).
+kubectl get <custom-resource>: List custom resources.
+kubectl describe <custom-resource> <resource-name>: Get details about a custom resource.
