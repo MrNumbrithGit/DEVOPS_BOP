@@ -1,3 +1,6 @@
+find / -name context.xml
+
+
 WATER FALL MODEL
 	The Waterfall Model is a traditional and linear software development methodology.
 	The name "waterfall" comes from the idea that each phase of the development process flows steadily downwards,
@@ -286,6 +289,9 @@ Maven SpringBoot
 
 	Eclipse ==> Import ==> Exsiting Maven project ==> Dry Run ( Might not work) ==> Under static ,add html file ==> run a maven build ==> Run Java Application
 	        ==> open browser localhost/8080 .
+			
+			
+Tomcat > servers.xml
 ==========================================================================================================
 
 DBMS
@@ -373,6 +379,7 @@ collaborate (see also: git help workflows)
 
 ___________________________
 
+
 The Git workflow typically involves a series of commands to manage and track changes to your codebase. Here's a basic Git workflow with commonly used commands:
 
 1. **Initialize a Repository:**
@@ -429,6 +436,7 @@ The Git workflow typically involves a series of commands to manage and track cha
 	- `git remote add origin https://github.com/MrNumbrithGit/FacebookSeleniumTest.git
 	- `git remote remove add origin https://github.com/MrNumbrithGit/FacebookSeleniumTest.git	
 	- `git push -u origin master
+	- 'git remote -v' : List of URLs added
 	
 11. **Resolve Conflicts:**
     - During merges, if conflicts arise, you need to manually resolve them by editing the affected files.
@@ -666,3 +674,247 @@ pipeline {
         }
     }
 }
+
+===============================================
+pipeline {
+    agent { label 'javaslave1' }
+    
+    tools {
+        maven "maven_3.6.3"
+    }
+    
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'SCM Checkout'
+				git 'https://github.com/LoksaiETA/Java-mvn-app2.git'      #This step fetches the source code from the repository and places it in the Jenkins workspace so that subsequent stages can work with it.
+            }
+        }
+        stage('App_Build') {
+            steps {
+                echo 'Perform Maven Build'
+				sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+            }
+        }
+        stage('Deploy to QA Environment') {
+            steps {
+				script {
+					sshPublisher(publishers: [sshPublisherDesc(configName: 'QA-Server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/mvn-hello-world.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+				}
+            }
+        }
+    }
+}
+
+===============================================
+FreeStyle
+-------
+pipeline
+SCM_Checkout
+App_Build > mvn clean package
+Deploy to QA Environment
+
+Email Notification Plugins
+Build Triggers	
+- Build Periodic	
+- github webhook
+- Poll SCM 
+===============================================
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'url'
+            }
+        }
+        
+    }
+}
+
+
+pipeline
+	agent ?
+	
+	stages
+		stage
+			steps
+			 {}
+		stage
+			steps
+			 {}
+		stage
+			steps
+			 {}
+			 
+			
+			
+			
+FreeStyle_git_maven_tomcat > Configure > Source Code Management > Git_Repositories Credentials none > Branches to build ,Master > 
+
+
+============================================================
+DOCKER
+
+
+				Terminologies :::
+				
+					Containerization :
+						It is the process of packaging the application along with its dependencies.
+					
+					Namespace (NS)			--> Used to create independent process to the containers
+					Control Groups (CG)		--> Used to create the level of isolation to run the containers in the namespace.
+					
+					Container Engine 		--> Used to create the container Images, Run the Container, Manage the Container resources.
+												It acts as an interface between the underlying OS and the Containers.
+					Image					--> Images are the static file, that defines the application and its depedencies.
+												Image are Non-Executable.
+					Container				--> Containers are Executable unit of Image. 
+					Container Registry		--> It is used to Store and Manage the Container Images.
+												dockerhub - is the default container registry for Container Images.
+												www.hub.docker.com
+												
+-----------------------------------
+
+
+Create and run a container from an image, with a custom name:
+docker run --name <container_name> <image_name>
+
+Run a container with and publish a container’s port(s) to the host.
+docker run -p <host_port>:<container_port> <image_name>
+
+Run a container in the background
+docker run -d <image_name>
+
+Start or stop an existing container:
+docker start|stop <container_name> (or <container-id>)
+
+Remove a stopped container:
+docker rm <container_name>
+
+Open a shell inside a running container:
+docker exec -it <container_name> sh
+
+Fetch and follow the logs of a container:
+docker logs -f <container_name>
+
+To inspect a running container:
+docker inspect <container_name> (or <container_id>)
+
+To list currently running containers:
+docker ps
+
+List all docker containers (running and stopped):
+docker ps --all
+
+View resource usage stats
+docker container stats
+
+View hostory of a container
+docker history <container_name> (or <container_id>)
+
+-----------------------------------
+
+for linux in aws docker basics run all the commands present there
+
+
+docker info-gives you the infomation about the docker
+docker images -images the already exist
+docker ps  - Running container , how many containers are they or details of container or running conatiner
+docker ps -a -all containers
+docker pull osname(ubuntu)-download image
+docker run imageName    : To run in foreground(attached mode) , If there is no task to run it will exit.
+dockers run -it(interactive)   /  dockers run -d(dettached mode , run it as a background process) osname(ubuntu)    :it will give you  large number of charcaters(to create a new container)
+docker exec -it containerid bash -to enter inside the container
+exit -to come out of the container and then commit
+docker commit containername(docker hub name)/jsptest1 -create an images out of a container (which is modified by you and then you want to save the container)
+docker login - to login into your dockerhub(there you want to enter your docker hub username and password)
+docker push containername(dockerhub name/jsptest1) -moves or store the container into your docker hub
+docker tag source(jsptest2) destination(dockerhubname/jsptest2)-creating a copy of container
+apt-get install apache2- installing apache
+service apache2 start -starting the apache
+ps -ef -listing the services
+ps -ef | grep apache2- where the word apache2 is they are displayed
+ps -ef | wc -l -how many lines are present
+cat ports.conf -the port number of s/w
+we can't change port or mapping after starting so we need to do it before starting service
+docker run -it -p(publish) 80 80(port of base os  and guest binaries) -d osname(ubuntu)-to mapping  
+docker run -it -p 8080:8080 tomcat
+-----------------------------------
+
+docker login -u mrnumbrithdocker
+dckr_pat_MNofb-uKGD1qOYTr5PYJD_C-HyM
+
+
+-----------------------------------
+Jenkins 
+					  SCM_Checkout	--> Application_Build(*.war)	--> Docker_Build(App_Img)	--> Publish_to_Docker_Resigtry
+					  
+Servers :
+	Jenkins_Master						==> git,jdk,jenkins 		
+										==> It is create the build pipeline & Schedule the job to node.
+		Java_Appln_Build_Server			==> git,jdk,maven,docker	
+										==> It is used to build the Application and build Container image
+										==> Push the images to Container Registry.					  
+
+- Jenkins_Master & Node Configuration is successful
+		Maven tool configuration
+		usermod -aG docker devopsadmin
+		User_ID in build server with SSH Keys
+		Config the Node in Jenkins_Master
+							
+- Access to Dockerhub from Jenkins.
+		Configure the Dockhub credentials in Jenkins_Master
+		Create Access Token in Dockerhub
+		Login to Dockerhub
+		Publish_to_Docker_Registry				
+							
+-----------------------------------
+
+pipeline {
+
+    agent { label 'slave1' }
+	
+    tools {
+        maven "maven-3.6.3"
+    }
+
+	environment {	
+		DOCKERHUB_CREDENTIALS=credentials('dockerloginid')
+	}
+	
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+				git 'https://github.com/LoksaiETA/devops-java-webapp.git'
+            }
+        }
+        stage('Application_Build') {
+            steps {
+                echo 'Perform Maven Build'
+				sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+				sh 'docker version'
+				sh "docker build -t loksaieta/loksai-eta-app:${BUILD_NUMBER} ."
+				sh 'docker image list'
+				sh "docker tag loksaieta/loksai-eta-app:${BUILD_NUMBER} loksaieta/loksai-eta-app:latest"
+            }
+        }
+		stage('Login2DockerHub') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+		stage('Publish_to_Docker_Registry') {
+			steps {
+				sh "docker push loksaieta/loksai-eta-app:latest"
+			}
+		}
+    }
+}	
