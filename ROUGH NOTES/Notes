@@ -591,12 +591,7 @@ Default loc  -->  var/lib/jenkins
 					Slave-Node3				VM	==> C# Appln. Build ==> git, jdk, maven	# Application Build Server
 
 			
-			
-
-
-
-
-
+	
 
 Configuration of Slave Node 
 Jenkins ==> Manage Jenkins ==> Node ==> Name , PermanentUser ==> Labels (MustName) , Number of executors (No of Build Simultaniounly) 
@@ -624,7 +619,7 @@ SLAVE/ WORKSPACE ----Share files----> QA SERVER
 	2.Create a user , ssh key
 	3.chown -R devopsadmin /var/lib/tomcat9/webapps     From Root
 	4.To ssh using Jenkins , Plugin: publish over ssh.
-5.Manage Jenkins > System > Fill under Publish over SSH> SSH Servers (Name, Hostname[Pvt IP], username,Remote Directory (path to load)) > Advanced > Key > Success.
+5.Manage Jenkins > System > Fill under Publish over SSH> SSH Servers (Name, Hostname[Pvt IP], username,Remote Directory (/var/lib/tomcat9/webapps)) > Advanced > Key > Success.
 	6.Configure groovy Script, Project > Configure > Pipeline Syntax > Sample Step (ssh publisher) > SSH Server Name (QA_Server) > 
 		Source file (target/mvn-hello-world.war) > Remove prefix (target/) > Remote directory (.)(What is in configuration(So its Dot)) > Generate Pipeline Script
 	7.Edit Script added the snippet under script{}
@@ -654,10 +649,10 @@ Build Triggers
 	*/15 * * * *  > At every 15th minute
 	
 Email Notification Plugins
+Manage Jenkins	> System > E-mail Notification > Follow below steps
 	SMTP Server : smtp.gmail.com
 	SMTP Authentication (Tick)
 	SMTP Port :: 465
-
 
 Create a JENKINS pipelines job > run shedule every 4 hours > to clean up the workspace directory in slave machine
 
@@ -674,6 +669,9 @@ pipeline {
         }
     }
 }
+
+Docker LogIn Password (Token) On Jenkins
+Manage Jenkins > Credentials > Add Credentials > Kind : username with password > Username : mrnumbrithdocker > Password : DockerToken > ID & Discrip : Docker pass > Create
 
 ===============================================
 pipeline {
@@ -714,11 +712,13 @@ SCM_Checkout
 App_Build > mvn clean package
 Deploy to QA Environment
 
-Email Notification Plugins
+
 Build Triggers	
 - Build Periodic	
 - github webhook
 - Poll SCM 
+
+Email Notification Plugins
 ===============================================
 pipeline {
     agent any
@@ -756,6 +756,10 @@ FreeStyle_git_maven_tomcat > Configure > Source Code Management > Git_Repositori
 
 ============================================================
 DOCKER
+	A Docker container encapsulates a single application. Sometimes, it can encapsulate multiple apps. 
+	But standard procedure is to have a single application running in a container.
+	A virtual machine encapsulates an entire operating system.
+
 
 
 				Terminologies :::
@@ -773,8 +777,12 @@ DOCKER
 					Container				--> Containers are Executable unit of Image. 
 					Container Registry		--> It is used to Store and Manage the Container Images.
 												dockerhub - is the default container registry for Container Images.
-												www.hub.docker.com
-												
+												www.hub.docker
+-----------------------------------
+Docker Swarm 
+		Is the Container Orchestration Tool used to Orchestrate only the Docker Containers.	Ensure High Availability of Container.		
+Docker Compose 	
+		It is used to run multiple Containers as a Service.												
 -----------------------------------
 
 
@@ -847,9 +855,10 @@ docker login -u mrnumbrithdocker
 dckr_pat_MNofb-uKGD1qOYTr5PYJD_C-HyM
 
 
+Manage Jenkins > Credentials > Add Credentials > Kind : username with password > Username : mrnumbrithdocker > Password : DockerToken > ID & Discrip : Docker pass > Create
 -----------------------------------
 Jenkins 
-					  SCM_Checkout	--> Application_Build(*.war)	--> Docker_Build(App_Img)	--> Publish_to_Docker_Resigtry
+					  SCM_Checkout	--> Application_Build(*.war)	--> Docker_Build(App_Img)	--> Publish_to_Docker_Resigtry 
 					  
 Servers :
 	Jenkins_Master						==> git,jdk,jenkins 		
@@ -869,7 +878,7 @@ Servers :
 		Create Access Token in Dockerhub
 		Login to Dockerhub
 		Publish_to_Docker_Registry				
-							
+							admin
 -----------------------------------
 
 pipeline {
@@ -918,3 +927,16 @@ pipeline {
 		}
     }
 }	
+
+
+
+
+
+
+
+
+
+
+
+
+
