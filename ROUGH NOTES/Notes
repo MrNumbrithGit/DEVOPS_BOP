@@ -1,9 +1,5 @@
-BNM065739143123: Passport No. Y9668851 dispatched on 26/09/2023 and can be tracked using Speed Post Tracking No. PP559748684IN -PassportSP
-
-
-
-
 find / -name context.xml
+https://youtu.be/3id6l_BWdNA -- > Ansible END TO END PROJECT In Industry - First Project || Real Time Project
 
 
 WATER FALL MODEL
@@ -212,7 +208,7 @@ AWS CodeCommit: Source control service hosting Git repositories, providing secur
 
 AWS CodeArtifact: Package management service for storing, managing, and sharing software packages across development teams securely and efficiently.
 
-==========================================================================================================
+=====================================================================================================================================================
 
 add multiple user in user group?
 sudo usermod -a -G groupname username
@@ -266,6 +262,8 @@ New ==> Java project ==> under java packages create the class java code
 
 
 ==========================================================================================================
+SELENIUM
+
 To perform ****SELENIUM QA**** testing with TestNG(Better reports)
 Install TestNG on eclipse 
 
@@ -278,7 +276,9 @@ Run program as TESTNG ==> Report will be generated ==> Find emailable report.
 
 https://www.saucedemo.com/v1/
 
-==========================================================================================================
+=====================================================================================================================================================
+MAVEN
+
 Maven sample project (quickstart)
  
  Eclipse ==> New ==> Maven project ==> archetype (smple-quickstart..) ==> create
@@ -297,7 +297,7 @@ Maven SpringBoot
 			
 			
 Tomcat > servers.xml
-==========================================================================================================
+=====================================================================================================================================================
 
 DBMS
 
@@ -335,8 +335,8 @@ SQL allows users to interact with databases in a structured and efficient manner
 
 
 
-==========================================================================================================
-
+=====================================================================================================================================================
+GIT
 ___________________________             ___________________________
 ___________________________ ----GIT---- ___________________________
 
@@ -405,8 +405,6 @@ The Git workflow typically involves a series of commands to manage and track cha
 
 5. **View Status:**
    - `git status`: Displays the status of your working directory, showing modified, staged, and untracked files.
-
-
 
 
 6. **Review History:**
@@ -559,10 +557,11 @@ https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire/3.1.2
     <type>pom</type>
 </dependency>
 
-==========================================================================================================
+=====================================================================================================================================================
 
 JENKINS 
 		- The build orchestration ###Jenkins is one of the open source build orchestration tool###
+		Pre-requisites : JDK,MAVEN TOOL config
 
 Default loc  -->  var/lib/jenkins
 
@@ -678,6 +677,7 @@ pipeline {
 Docker LogIn Password (Token) On Jenkins
 Manage Jenkins > Credentials > Add Credentials > Kind : username with password > Username : mrnumbrithdocker > Password : DockerToken > ID & Discrip : Docker pass > Create
 
+
 ===============================================
 pipeline {
     agent { label 'javaslave1' }
@@ -758,8 +758,72 @@ pipeline
 			
 FreeStyle_git_maven_tomcat > Configure > Source Code Management > Git_Repositories Credentials none > Branches to build ,Master > 
 
+=====================================
+TOMCAT 
 
-============================================================
+sudo apt install openjdk-11-jre
+
+#Tar file(Download link)
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+
+java --version
+
+#Pull tar file
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+
+#Upzip tar file
+tar -xvzf apache-tomcat-9.0.80.tar.gz
+
+#tar is no more required
+rm apache-tomcat-9.0.80.tar.gz
+
+
+/home/ubuntu/tomcat9/bin
+
+sh startup.sh
+
+Check 
+IP:8080
+
+
+#you'll need to edit the Manager's context.xml file.
+
+vi /home/ubuntu/tomcat9/webapps/host-manager/META-INF/context.xml
+vi /home/ubuntu/tomcat9/webapps/manager/META-INF/context.xml
+
+#COMMENT
+  <!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+  allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+  
+#Add role and uname passwd
+
+/home/ubuntu/tomcat9/conf
+vi tomcat-users.xml
+
+    <role rolename="manager-gui"/>
+	<role rolename="admin-gui"/>
+    <role rolename="manager-script"/>
+	<role rolename="admin-script"/>
+    <role rolename="manager-jmx"/>
+    <role rolename="manager-status"/>
+    <user username="admin" password="admin" roles="manager-gui,manager-script,admin-gui,admin-script,manager-jmx,manager-status"/>
+
+
+#Try loggingIN
+
+
+On Jenkins 
+Post Build action 
+	- Deploy as container
+	- **/*.war
+	- Credentials  (admin , admin)
+	- Tomcat URL  (http://54.165.20.140:8080/)
+	
+	
+
+
+=====================================================================================================================================================
+
 DOCKER
 	A Docker container encapsulates a single application. Sometimes, it can encapsulate multiple apps. 
 	But standard procedure is to have a single application running in a container.
@@ -777,7 +841,7 @@ DOCKER
 					
 					Container Engine 		--> Used to create the container Images, Run the Container, Manage the Container resources.
 												It acts as an interface between the underlying OS and the Containers.
-					Image					--> Images are the static file, that defines the application and its depedencies.
+					Image					--> Images are the static file,
 												Image are Non-Executable.
 					Container				--> Containers are Executable unit of Image. 
 					Container Registry		--> It is used to Store and Manage the Container Images.
@@ -812,7 +876,7 @@ docker exec -it <container_name> sh
 Fetch and follow the logs of a container:
 docker logs -f <container_name>
 
-To inspect a running container:
+To inspect (Detailed list) a running container:
 docker inspect <container_name> (or <container_id>)
 
 To list currently running containers:
@@ -933,15 +997,161 @@ pipeline {
     }
 }	
 
+-----------------------------------
+ Docker Compose file   (yaml)
+ 
+version: '3'  # Compose file version (e.g., '3', '3.8')
+
+services:
+  webapp:    # Service name
+    image: nginx:latest  # Docker image to use for the service
+    ports:
+      - "80:80"  # Port mapping (host_port:container_port)
+    volumes:
+      - ./webapp:/usr/share/nginx/html  # Mount a host directory as a volume
+    environment:
+      - NGINX_ENV=production  # Environment variables
+
+  database:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysecretpassword
+      - MYSQL_DATABASE=mydb
+
+networks:
+  mynetwork:  # Custom bridge network
+    driver: bridge
+
+volumes:
+  myvolume:  # Named volume
+
+=====================================================================================================================================================
+
+
+KUBERNETES
+
+
+
+
+			Terminologies :
+				Images 
+				Containers 
+				Container Registry 
+				Repositories
+				
+				Kubernetes_Master		==> Is a controller Machine, shedules the deployments 
+				Kubernetes_Cluster 		==> Is a collection of Kubernetes_Worknodes
+				Kubernetes_Worknodes 	==> Are the nodes where the actual deployment happens.
+				Kubeadm					==> Is the command line utility  used to initiate the Kubernetes Master & its resource.
+				kubectl					==> It is a command line utility used to interact with Kubernetes master.
+				
+				PODs					==> Atomic Unit of Scheduling.
+				
+				
+Pod Communication is done through (Auto generated IP)
+Inter - Ip
+Intra - Ip:port
+
+Kubernetes architecture is designed to manage containerized applications across a cluster of machines efficiently and at scale. Here's an overview of the key components and concepts in Kubernetes architecture:
+
+1. **Master Node**:
+   - The master node is the control plane of the Kubernetes cluster. It manages and coordinates all activities within the cluster. Key components on the master node include:
+     - **API Server**: The central management point that exposes the Kubernetes API, which is used to interact with the cluster.
+     - **etcd**: A distributed key-value store that stores the cluster's configuration data, such as the desired state of resources.
+     - **Controller Manager**: Manages controller processes responsible for maintaining the desired state of resources, such as deployments, replicasets, and services.
+     - **Scheduler**: Assigns work to worker nodes based on resource requirements, constraints, and other policies.
+
+2. **Worker Node**:
+   - Worker nodes, also known as worker or minion nodes, are the machines that run containerized applications. Each worker node hosts multiple pods, which are the smallest deployable units in Kubernetes. Key components on a worker node include:
+     - **Kubelet**: Ensures that containers are running in a Pod by communicating with the container runtime (e.g., Docker) and reporting the pod's status to the control plane.
+     - **Container Runtime**: The software responsible for running containers (e.g., Docker, containerd).
+     - **Kube Proxy**: Manages network communication between pods and services, including load balancing and network policies.
+
+3. **Kubeconfig**: Configuration files used by administrators, developers, and tools to interact with the Kubernetes cluster. It includes details like the API server's address and authentication credentials.
+
+4. **kubectl**: A command-line tool that allows users to interact with the Kubernetes cluster. It uses the kubeconfig file to authenticate and communicate with the API server.
+
+5. **Pod**: The smallest deployable unit in Kubernetes. It can contain one or more containers that share the same network namespace and storage volumes. Pods are scheduled to run on worker nodes.
+
+6. **ReplicaSet and Deployment**: Controllers that manage the desired number of replica pods and ensure that the desired state is maintained, even if pods fail or are terminated.
+
+7. **Service**: An abstraction that provides a stable network endpoint to access a set of pods. Services can be used for load balancing, service discovery, and routing traffic to pods.
+
+8. **Namespace**: A way to logically divide a Kubernetes cluster into multiple virtual clusters, allowing for isolation and resource allocation. Namespaces are used to organize and separate resources.
+
+9. **ConfigMap and Secret**: Kubernetes resources for managing configuration data and sensitive information (such as passwords and API keys), which can be used by containers and pods.
+
+10. **Ingress**: Manages external access to services, typically HTTP. It provides routing rules, load balancing, and SSL termination for incoming traffic.
+
+11. **Volume**: A directory that may be mounted into a pod's containers. It can be used for persisting data or sharing files between containers.
+
+12. **Persistent Volumes (PVs) and Persistent Volume Claims (PVCs)**: Resources that manage storage in a cluster. PVCs are used by pods to request storage, while PVs are the physical storage resources that are provisioned and managed by administrators.
+
+13. **StatefulSet**: A controller for deploying and managing stateful applications, such as databases, where each pod has a stable and unique identity.
+
+14. **Custom Resource Definitions (CRDs)**: Extends the Kubernetes API with custom resources and controllers, enabling the creation of custom resource types and operators.
+
+Kubernetes architecture provides a highly scalable, resilient, and flexible platform for deploying, managing, and scaling containerized applications. It abstracts the underlying infrastructure and automates many operational tasks, making it easier to run cloud-native applications in production.
 
 
 
 
 
+K8s Cluster Pre-requisites 
+									
+	Launch VMs - Host_Machines -- KM,(KWN1,2,3,...)
+		3GB RAM 
+		2 CPUs 
+	K-Master&K-Node
+		All the Nodes should have full network assess. 
+		There should not be any firewall restriction. 
+		All the required ports should be enabled.
+																
+	K-Master&K-Node
+		To be install in all the nodes - Master & Workernodes.
+		Setup Host_Machine Names -- KM,(KWN1,2,3,...)
+		Docker 
+		ContainerD ==> CRI - Container Runtime Interface 
+		kubeadm,kubectl,kubelet
+		Ports To be enabled
+	K-Master								
+		To be executed only in Master
+		kubeadm init to initialize Kubernetes master 
+	K-Node					
+		To be executed only in WorkerNodes
+		kubeadm join to join the workernodes kubernetes Master 
 
 
 
+Pod Creation
+		nginx.yml (file) > kubectl create -f nginx-pod.yaml  > kubectl get pod > # (To get inside the pod )  kubectl exec -it nginx-pod -- /bin/sh >
+		Create test HTML page > (Expose PODS using NodePort service ) kubectl expose pod nginx-pod --type=NodePort --port=80  > 
+		kubectl get svc (Node port /44545)  >  Open Web-browser and access webapge using IP:NODE_PORT 
+		
+
+OverView
+		Deployment -> Pod --> Container --> Application
+					->If pod fails ,New Pod will resume the task(Self-healing)
+
+		NodePort Service ==> It is used to expose the pod to internet.
+		Using the External IP Address of the Node and the NodePort, we can access the application that is running inside the pod thru web browser.
+		
 
 
-
-
+alias kgp='kubectl get pods'
+alias kgd='kubectl get deploy'
+alias kgn='kubectl get ns'
+alias kgd='kubectl get deploy'
+alias ans='--all-namespaces'
+alias krrd='kubectl rollout restart deploy'
+alias kcuc='kubectl config use-context'
+alias c='clear'
+alias kdp='kubectl describe pod'
+alias ge=' grep -i error --colour'
+alias kl='kubectl logs'
+alias k='kubectl'
+alias g='grep'
+alias r='kubectl get pods | awk '$4 !~ /0/ {print $0}' | awk -F '\t' 'NR>1 && NF=1''
+alias token='kubectl config set-credentials BMotaia1 --token='
+alias s0='kubectl scale --replicas=0 deployment'
+alias s1='kubectl scale --replicas=1 deployment'		
