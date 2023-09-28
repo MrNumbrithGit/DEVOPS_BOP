@@ -114,3 +114,9 @@ In Jenkins Master - Add Node Configuration
 
 Maven Repos
           https://mvnrepository.com/
+===================================================================================================
+KUBERNETS 
+
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+STEPS:  https://github.com/MrNumbrithGit/DEVOPS_BOP/blob/main/Kubernetes/Kubernetes_Installation
