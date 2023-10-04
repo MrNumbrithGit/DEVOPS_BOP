@@ -1,5 +1,21 @@
 find / -name context.xml
 https://youtu.be/3id6l_BWdNA -- > Ansible END TO END PROJECT In Industry - First Project || Real Time Project
+____________________________________
+
+echo $var1                      -- Linux Terminal output
+
+echo "${var1}"				    -- Jenkins/Groovy Terminal output
+
+"This is a variable {{var1}}"   -- Ansible Playbook Terminal output
+____________________________________
+
+ansible-playbook gg.yml --syntax-check
+____________________________________
+
+usermod -aG docker devopsadmin
+# addgroup,docker is a group,devopsadmin is a user
+___________________________________
+usermod -aG ansible devopsadmin
 
 
 WATER FALL MODEL
@@ -820,7 +836,15 @@ Post Build action
 	- Tomcat URL  (http://54.165.20.140:8080/)
 	
 	
-
+<tomcat-users>
+    <role rolename="manager-gui"/>
+    <role rolename="admin-gui"/>
+    <role rolename="manager-script"/>
+    <role rolename="admin-script"/>
+    <role rolename="manager-jmx"/>
+    <role rolename="manager-status"/>
+    <user username="admin" password="admin" roles="manager-gui,manager-script,admin-gui,admin-script,manager-jmx,manager-status"/>
+</tomcat-users>
 
 =====================================================================================================================================================
 
@@ -983,7 +1007,7 @@ pipeline {
 				sh "docker tag loksaieta/loksai-eta-app:${BUILD_NUMBER} loksaieta/loksai-eta-app:latest"
             }
         }
-		stage('Login2DockerHub') {
+		stage('Login2DockerHub') 
 
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -1094,9 +1118,6 @@ Kubernetes architecture is designed to manage containerized applications across 
 Kubernetes architecture provides a highly scalable, resilient, and flexible platform for deploying, managing, and scaling containerized applications. It abstracts the underlying infrastructure and automates many operational tasks, making it easier to run cloud-native applications in production.
 
 
-
-
-
 K8s Cluster Pre-requisites 
 									
 	Launch VMs - Host_Machines -- KM,(KWN1,2,3,...)
@@ -1120,8 +1141,22 @@ K8s Cluster Pre-requisites
 	K-Node					
 		To be executed only in WorkerNodes
 		kubeadm join to join the workernodes kubernetes Master 
+		
+=======================================================
+
+On Restart deployment,ID will change
 
 
+				Services :::
+					ClusterIP 	(Default Service)
+					NodePort 	- It is used to expose the pods to internet.
+					Load Balancer		
+
+					
+			Kubernetes Namespaces 			==> Logical Partitioning of the Cluster.
+					Can be created based on the Application / Environments.
+					
+=======================================================
 
 Pod Creation
 		nginx.yml (file) > kubectl create -f nginx-pod.yaml  > kubectl get pod > # (To get inside the pod )  kubectl exec -it nginx-pod -- /bin/sh >
@@ -1138,20 +1173,318 @@ OverView
 		
 
 
+# Create and display PODs
+kubectl create -f nginx-pod.yaml
+kubectl get pod
+kubectl get pod -o wide
+kubectl get pod nginx-pod -o yaml
+kubectl describe pod nginx-pod
+
+
+=======================================================
+Deployment Creation
+
+Deployment Controller Object  high - availability of pods, autoscale, upgrade, rollback(undo) the changes.
+
+"nginx-deploy-xxxxx-yyyyy," where "xxxxx" is a Deployment-specific identifier, and "yyyyy" is a unique identifier for the ReplicaSet.
+
+
+
+
+=======================================================
+# 2. Create and Display Deployment
+
+kubectl create -f nginx-deploy.yaml 
+kubectl get deploy -l app=nginx-app
+kubectl get rs -l app=nginx-app
+kubectl get po -l app=nginx-app
+kubectl describe deploy nginx-deploy
+
+*******************************************************************
+# 3. Testing: Rollback update 
+
+kubectl set image deploy nginx-deploy nginx-container=nginx:1.91 --record
+kubectl rollout status deployment/nginx-deploy
+kubectl rollout history deployment/nginx-deploy
+kubectl rollout undo deployment/nginx-deploy
+kubectl rollout status deployment/nginx-deploy
+kubectl describe deploy nginx-deploy | grep -i image
+
+*******************************************************************
+# 4. Testing: Update Version of "nginx:1.7.9"  to "nginx:1.9.1"
+
+kubectl set image deploy nginx-deploy nginx-container=nginx:1.9.1
+# or
+kubectl edit deploy nginx-deploy
+kubectl rollout status deployment/nginx-deploy
+kubectl get deploy
+
+*******************************************************************
+# 5. Testing: Scale UP
+
+kubectl scale deployment nginx-deploy --replicas=5
+kubectl get deploy
+kubectl get po -o wide
+
+*******************************************************************
+# 6. Testing: Scale DOWN
+
+kubectl scale deployment nginx-deploy --replicas=3
+kubectl get deploy
+kubectl get po -o wid
+
+=======================================================
+
+
+
+
+
+
+
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deploy'
 alias kgn='kubectl get ns'
 alias kgd='kubectl get deploy'
-alias ans='--all-namespaces'
 alias krrd='kubectl rollout restart deploy'
 alias kcuc='kubectl config use-context'
 alias c='clear'
 alias kdp='kubectl describe pod'
 alias ge=' grep -i error --colour'
 alias kl='kubectl logs'
-alias k='kubectl'
+alias k='kubectl'kl 
 alias g='grep'
 alias r='kubectl get pods | awk '$4 !~ /0/ {print $0}' | awk -F '\t' 'NR>1 && NF=1''
 alias token='kubectl config set-credentials BMotaia1 --token='
 alias s0='kubectl scale --replicas=0 deployment'
 alias s1='kubectl scale --replicas=1 deployment'		
+
+
+
+
+=====================================================================================================================================================
+
+ANSIBLE
+
+				Ansible is IAC Tool used for Configuration Management.
+					It is simple and Agentless
+					It is powerful IAC Tool
+					It uses push mechanism to manage the target machines.
+				
+				
+				Ansible is used to :
+					- Configure the Server - Installation/Unstallation/Upgrade of tools/Services
+					- Deployment of Applications 
+					- Used to perform Security Patch updates in all the target Machines
+					
+					- Should be reusable
+					
+
+		
+
+===========================================		
+[testnodes]
+samplenode1 ansible_ssh_host=54.157.192.63 ansible_ssh_user=ansibleadmin
+samplenode2 ansible_ssh_host=172.31.37.129 ansible_ssh_user=ansibleadmin
+
+
+ansible <hosts_name> -m <module_name> -i <inventory_file>
+
+ansible testnodes -m ping
+
+ansible dev_server_grp1 -m ping -i dev_servers
+
+ansible devnodes -m ping -i /etc/ansible/dev_inventory
+
+#host machines can be identified using :
+#all | group_name | individual_host_name
+
+===========================================
+
+Ansible AD-HOC commands
+
+ansible -i my_inventory.ini -m shell -a 'df -h' my_servers
+
+In this example:
+
+- `-i my_inventory.ini`: Specifies a custom inventory file named `my_inventory.ini`.
+
+- `-m shell`: Uses the `shell` module to execute a shell command on remote hosts.
+
+- `-a 'df -h'`: Passes the `df -h` command as an argument to the `shell` module.
+
+- `my_servers`: The host pattern that selects the hosts or group of hosts named `my_servers` from the inventory.
+
+
+- 'all'   for all the nodes
+This command will execute the `df -h` command on all hosts listed under the `my_servers` group in the custom inventory file.
+
+
+===========================================
+
+
+echo $var1                      -- Linux Terminal output
+
+echo "${var1}"				    -- Jenkins/Groovy Terminal output
+
+"This is a variable {{var1}}"   -- Ansible Playbook Terminal output
+
+==========================================
+
+Playbook Reusablelity
+Variables
+Variables file
+Dynamic Variables
+Package manager Playbook
+Handler
+Notify 
+
+
+
+---
+- hosts: "{{ host_name }}"
+  become: yes
+  tasks:
+    - name: Managing "{{ tool_name }}" service
+      "{{ module_name }}":
+        name: "{{ tool_name }}"
+        state: "{{ tool_state }}"
+
+
+
+
+#  ansible-playbook apt_update.yaml -e "host_name=testnodes tool_name=nginx module_name=apt tool_state=present"
+
+#  state: present / absent / latest
+
+#  ansible-playbook gg.yml --syntax-check
+
+
+	   
+	   
+	   
+	   
+	   
+sudo usermod -aG sudo ansibleadmin
+
+
+---
+- hosts: all # Replace with the actual target hosts or host group
+  become: yes  # If file destination requires superuser privileges
+
+  tasks:
+    - name: Copy a file to remote hosts
+      copy:
+        src: /etc/ansible/playbook_area/file.txt  # Path to the source file on the local machine
+        dest: /home/ansibleadmin/ansi    # Destination path on the remote machine
+
+
+
+
+ansible all -m copy -a "src=/etc/ansible/playbook_area/file.txt dest=/home/ansibleadmin/ansi"
+
+=====================================
+ROLES
+Ansible Roles are a way to organize and structure your Ansible playbooks to promote reusability and maintainability. 
+
+my_role/
+├── defaults/
+│   └── main.yml
+├── files/
+├── handlers/
+│   └── main.yml
+├── meta/
+│   └── main.yml
+├── tasks/
+│   └── main.yml
+├── templates/
+├── tests/
+│   ├── inventory
+│   └── test.yml
+├── vars/
+│   └── main.yml
+└── README.md
+```
+
+- **defaults**: Default variables for the role.
+- **files**: Static files to be copied to the target hosts.
+- **handlers**: Event-driven tasks that are triggered by other tasks.
+- **meta**: Metadata for the role, including dependencies.
+- **tasks**: The main tasks that the role performs.
+- **templates**: Jinja2 templates for dynamic file generation.
+- **tests**: Directory for role testing.
+- **vars**: Variables specific to the role.
+- **README.md**: Documentation for the role.
+
+
+=======
+ansible-package rolefile.yaml
+
+- hosts: my_hosts
+  roles:
+    - my_role
+
+======
+
+
+ansible-galaxy init <author>.<role_name>
+
+ansible-galaxy install <author>.<role_name>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ ansible-playbook gg.yml
+
+PLAY [all] *******************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************************************************************************
+fatal: [samplenode1]: FAILED! => {"msg": "Missing sudo password"}
+
+PLAY RECAP *******************************************************************************************************************************************************************************************************
+samplenode1                : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ vi gg.yml
+devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ vi gg.yml
+devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ cd ..
+devopsadmin@ip-172-31-47-250:/etc/ansible$ vi hosts
+devopsadmin@ip-172-31-47-250:/etc/ansible$ ansible-playbook gg.yml
+ERROR! the playbook: gg.yml could not be found
+devopsadmin@ip-172-31-47-250:/etc/ansible$ cd playbook_area/
+devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ ansible-playbook gg.yml
+
+PLAY [all] *******************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************************************************************************
+fatal: [samplenode1]: FAILED! => {"msg": "Missing sudo password"}
+
+PLAY RECAP *******************************************************************************************************************************************************************************************************
+samplenode1                : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+
+
+
+ansible-playbook gg.yml --syntax-check
