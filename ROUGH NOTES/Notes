@@ -577,7 +577,8 @@ https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire/3.1.2
 
 JENKINS 
 		- The build orchestration ###Jenkins is one of the open source build orchestration tool###
-		Pre-requisites : JDK,MAVEN TOOL config
+		Pre-requisites :JM--> JDK,JENKINS , GIT TOOL config
+						JS--> JDK, MAVEN , DOCKER , GIT
 
 Default loc  -->  var/lib/jenkins
 
@@ -632,7 +633,7 @@ DESTINATION ==
 		/var/lib/tomcat9/webapps
 		
 		
-		
+SSH PUBLISHER		
 SLAVE/ WORKSPACE ----Share files----> QA SERVER
 
 	1.QA Server needs java and tomcat for project to run ,INSTALL.
@@ -646,9 +647,10 @@ SLAVE/ WORKSPACE ----Share files----> QA SERVER
 	8.Build > Check > IP:8080/mvn-hello-world
 
 ===
-
+devopsadmin
+devopsadmin ALL=(ALL) NOPASSWD: ALL
 13.235.71.116
-
+sshPublisher(publishers: [sshPublisherDesc(configName: 'Kubernetes', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f k8smvndeployment.yaml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
 ====
 Build Triggers
 		
@@ -675,11 +677,17 @@ Build Triggers
 Email Notification Plugins
 Manage Jenkins	> System > E-mail Notification > Follow below steps
 	SMTP Server : smtp.gmail.com
+	@gmail.com
+	
 	SMTP Authentication (Tick)
-	SMTP Port :: 465
-
+	Use SSL (Tick)
+	SMTP Port :: 465	
+	UserName:mrnumbrith@gmail
+	password :dpar qghn qkuj ofnt
+	
+-----------------------------------
 Create a JENKINS pipelines job > run shedule every 4 hours > to clean up the workspace directory in slave machine
-
+-----------------------------------
 
 pipeline {
     agent { label 'JavaSlave' }
@@ -693,8 +701,9 @@ pipeline {
         }
     }
 }
-
+-----------------------------------
 Docker LogIn Password (Token) On Jenkins
+
 Manage Jenkins > Credentials > Add Credentials > Kind : username with password > Username : mrnumbrithdocker > Password : DockerToken > ID & Discrip : Docker pass > Create
 
 
@@ -881,9 +890,19 @@ Docker Swarm
 Docker Compose 	
 		It is used to run multiple Containers as a Service.												
 -----------------------------------
+#build from a docker file. (.)
+docker build -t mrnumbrithdocker/demonew:0.2 .
+docker build -t smitachawla67/hello:1.8 .
+#Docker Login
+docker login -u mrnumbrithdocker
 
+#docker push imagename
+docker push mrnumbrithdocker/demonew:0.2
 
-Create and run a container from an image, with a custom name:
+#tO Run the appli on -itd with -p
+docker run -itd -p 7070:8080 --name DemoNewwar smitachawla67/demonew:1.8
+
+#Create and run a container from an image, with a custom name:
 docker run --name <container_name> <image_name>
 
 Run a container with and publish a container’s port(s) to the host.
@@ -899,7 +918,8 @@ Remove a stopped container:
 docker rm <container_name>
 
 Open a shell inside a running container:
-docker exec -it <container_name> sh
+
+<container_name> /bin/bash
 
 Fetch and follow the logs of a container:
 docker logs -f <container_name>
@@ -935,7 +955,7 @@ docker exec -it containerid bash -to enter inside the container
 exit -to come out of the container and then commit
 docker commit containername(docker hub name)/jsptest1 -create an images out of a container (which is modified by you and then you want to save the container)
 docker login - to login into your dockerhub(there you want to enter your docker hub username and password)
-docker push containername(dockerhub name/jsptest1) -moves or store the container into your docker hub
+docker push ImageName(dockerhub name/jsptest1) -moves or store the container into your docker hub
 docker tag source(jsptest2) destination(dockerhubname/jsptest2)-creating a copy of container
 apt-get install apache2- installing apache
 service apache2 start -starting the apache
@@ -951,14 +971,17 @@ Container Volumes are used to run any stateful Application and maintain persista
 			
 			docker volume list
 			
-			docker volume create sadevopsvol 
+			docker volume create vol_one 
 			
-			docker volume inspect sadevopsvol
+			docker volume inspect vol_one
 			
-			docker run -it --mount source=sadevopsvol,destination=/sadevopsvol centos
+			docker run -it --mount source=vol_one,destination=/vol_one tomcat /bin/bash
 			
 			To send any input files to container or to access teh output files from container, we use container volume.
------------------------------------	
+-----------------------------------
+mrnumbrithdocker
+offset-->12345
+	
 docker login -u mrnumbrithdocker
 dckr_pat_MNofb-uKGD1qOYTr5PYJD_C-HyM
 
@@ -976,7 +999,7 @@ Manage Jenkins > Credentials > Add Credentials > Kind : username with password >
 				EXPOSE	--> It is used to Expose the Container Port. 
 				CMD		--> Used to specific the default/start-up command to run the container. This allow users to pass any commands at runtime. 
 				ENTRYPOINT	--> Used to specific the default/start-up command to run the container.This Will not allow users to pass any commands at runtime.
-								
+-----------------------------------							
 Dockerfile
 
 FROM tomcat:9.0
@@ -984,7 +1007,24 @@ COPY target/*.war /usr/local/tomcat/webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 
+-----------------------------------
+# Use an appropriate base image with Java installed
+FROM openjdk:11
+# Set the working directory inside the container
+WORKDIR /app
+# Copy the JAR file into the container
+COPY springboot.jar /app
+# Specify the command to run when the container starts
+CMD ["java", "-jar", "springboot.jar"]
 
+
+docker build -t vineethkvr1/rock:0.1 .
+
+docker run -itd -p 5050:8080 --name DemoNewjar vineethkvr1/rock:0.1
+
+744f2b2f2a05
+
+docker exec -it 744f2b2f2a05 /bin/bash
 -----------------------------------
 
 
@@ -1063,6 +1103,21 @@ pipeline {
 -----------------------------------
 Docker Compose 	
 		It is used to run multiple Containers as a Service.
+		
+		
+STEPS
+		apt install docker-compose
+		vi docker-compose.yml
+		docker-compose up
+		docker-compose up -d
+		check ip:8080
+		
+		
+		
+
+
+
+
  Docker Compose file   (yaml)
  
 version: '3'  # Compose yml file version (e.g., '3', '3.8')
@@ -1093,9 +1148,13 @@ volumes:
 
 
 
-STEPS
-Docker-compose.yml
 
+=====================================================
+alias di='docker images'
+alias dps='docker ps -a'
+alias c='clear'
+
+docker run -itd -p 8080:8080 --name addressbookCon mrnumbrithdocker/addressbookvikul:0.1 
 
 =====================================================================================================================================================
 
@@ -1188,7 +1247,16 @@ K8s Cluster Pre-requisites
 		kubeadm init to initialize Kubernetes master 
 	K-Node					
 		To be executed only in WorkerNodes
-		kubeadm join to join the workernodes kubernetes Master 
+		kubeadm join to join the workernodes kubernetes Master
+		
+		
+| Aspect                   | Pods                                                              | Deployments                            |
+|--------------------------|-------------------------------------------------------------------|----------------------------------------|
+| Primary Purpose          | Single-instance application containers                            | Managing replica sets for applications  |
+| Scaling                  | Typically not used for scaling                                    | Used for scaling and managing replicas  |
+| Maintaining State        | Pods are ephemeral and can be easily replaced or deleted          | Deployments ensure the desired number of replicas are running and maintain application availability |
+| Updates/Rollbacks        | No built-in support for updates or rollbacks                      | Support rolling updates and rollbacks to ensure zero-downtime updates |
+| Selectors                | May not have label selectors, making it harder to group and manage| Use label selectors to group and manage pods, allowing easy scaling and updates |
 		
 =======================================================
 
@@ -1284,15 +1352,15 @@ kubectl get po -o wid
 =======================================================
 
 
+kubectl set image pod tomcat-demonew tomcat-demonew-container=mrnumbrithdocker/demonew:0.1
 
 
 
-
-
+alias kgs='kubectl get svc'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deploy'
 alias kgn='kubectl get ns'
-alias kgd='kubectl get deploy'
+
 alias krrd='kubectl rollout restart deploy'
 alias kcuc='kubectl config use-context'
 alias c='clear'
@@ -1301,13 +1369,58 @@ alias ge=' grep -i error --colour'
 alias kl='kubectl logs'
 alias k='kubectl'kl 
 alias g='grep'
-alias r='kubectl get pods | awk '$4 !~ /0/ {print $0}' | awk -F '\t' 'NR>1 && NF=1''
-alias token='kubectl config set-credentials BMotaia1 --token='
 alias s0='kubectl scale --replicas=0 deployment'
 alias s1='kubectl scale --replicas=1 deployment'		
 
 
 
+===============================================
+docker search mrnumbrithdocker
+
+kubectl get all
+
+kubectl create -f nginx-deploy.yaml 
+
+kubectl exec -it deployment/<deployment-name> -- /bin/bash
+
+kubectl expose deployment tomcat-deploy --type=NodePort --port=8080
+
+kubectl set image deploy tomcat-deploy tomcat-container=mrnumbrithdocker/demonew:0.2
+
+kubectl rollout undo deployment/tomcat-deploy
+
+kubectl describe pod tomcat-deploy | grep events
+
+kubectl rollout history deployment/nginx-deploy
+
+kubectl scale --replicas=10 deployment tomcat-deploy-addbook
+
+kubectl delete -f nginx-deploy.yaml
+------------------------------
+kubectl set image deploy springweb spring-container=springweb:1.2
+kubectl rollout undo deployment/springweb
+
+kubectl delete -f deploy-tom.yml
+
+
+
+------------------------------
+ISSUE FACED
+
+STUCK IN TERMINATION  / PENDIND
+tomcat-deploy-addbook-6689bc547d-2xkg5   1/1     Terminating   0          5m9s
+tomcat-deploy-addbook-6689bc547d-46jvz   1/1     Terminating   0          5m9s
+tomcat-deploy-addbook-6689bc547d-4zztj   1/1     Terminating   0          5m9s
+
+tomcat-deploy-addbook-6689bc547d-n7z6l   0/1     Pending       0          29s
+
+kubectl get nodes
+
+#On Node
+sudo systemctl restart kubelet
+sudo systemctl status kubelet
+
+ 
 
 =====================================================================================================================================================
 
@@ -1368,8 +1481,31 @@ This command will execute the `df -h` command on all hosts listed under the `my_
 
 
 ===========================================
+su - devopsadmin
+/etc/ansible
+
+---
+- hosts: target-instance
+  become: yes
+  tasks:
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Install Maven
+      apt:
+        name: maven
+        state: present
+
+    - name: Install Tomcat9
+      apt:
+        name: tomcat9
+        state: present
 
 
+
+===========================================
 echo $var1                      -- Linux Terminal output
 
 echo "${var1}"				    -- Jenkins/Groovy Terminal output
@@ -1409,9 +1545,7 @@ Notify
 
 	   
 	   
-	   
-	   
-	   
+	    
 sudo usermod -aG sudo ansibleadmin
 
 
@@ -1464,20 +1598,104 @@ my_role/
 - **README.md**: Documentation for the role.
 
 
-=======
+=================================================
 ansible-package rolefile.yaml
 
 - hosts: my_hosts
   roles:
     - my_role
 
-======
+=================================================
 
-
+#To create a new role
 ansible-galaxy init <author>.<role_name>
 
+#Pull from ansible repo repo
 ansible-galaxy install <author>.<role_name>
 
+#Run the Playbook with the Role
+ansible-playbook my_playbook.yml
+
+=================================================
+
+
+======================================================================================================================
+
+TERRAFORM
+
+AWS CLOUD FORMATION / ARM / GRM
+
+https://developer.hashicorp.com/terraform/downloads
+
+
+
+
+provider "aws" {
+  region     = "us-east-1"
+  access_key = "AKIAQ654CTC6IIGWXLGS"
+  secret_key = "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"
+}
+
+# Create AWS Instance
+
+resource "aws_instance" "NewInstance" {
+  
+  ami           = "ami-0261755bbcb8c4a84"
+  instance_type = "t2.micro"
+  key_name      = "ClassNewKeyPair"
+
+  tags = {
+    Name = "TerraDemo"
+  }
+}
+
+
+-----------------------------
+1. Amazon Virtual Private Cloud (VPC): VPC is the fundamental networking construct in AWS. 
+It allows you to create an isolated network within the AWS cloud, providing you with control 
+over IP address ranges, subnets, routing, and security.
+
+2. Subnet: Subnets are subdivisions of a VPC and exist within an Availability Zone (AZ). 
+You can create public and private subnets. Public subnets have a route to the internet, while private subnets do not.
+
+4. Security Groups: Security Groups act as a virtual firewall for your EC2 instances. 
+You can specify inbound and outbound traffic rules to control access to your instances.
+
+7. Internet Gateway: An Internet Gateway allows traffic from your VPC to the public internet and vice versa. 
+It's essential for instances in public subnets to access the internet.
+
+-----------------------------
+
+
+
+AKIAQ654CTC6IIGWXLGS
+VArx7gmAi49TooMTTXm3y1EhEjVcr4zXxg6sJZrI
+
+======================================================================================================================
+
+PROJECT
+
+www.google.com --> Host based routing
+www.google.com/abc -sdjnudsdsjd
+
+Terroform 
+	- Provision the servers for complete process.
+Ansible 
+	- Install required tool On the servers
+GitHub
+	- Source code repository to maintain to code change.
+Jenkins
+	- Configure the Master(Controller)
+	- Multiple required nodes(Build servers) For the maven Build.
+	- Build Triggers
+Docker 
+	- Docker image Build and push.
+Kubernetes
+	- ssh publisher to copy the file from the Build server to kubernetes Master.
+	- Using the deployment file
+	- kubectl create -f nginx-deploy.yaml 
+------------------
+Integrate Prometheus and Grafana for the all servers and Kubernetes cluster
 
 
 
@@ -1485,54 +1703,3 @@ ansible-galaxy install <author>.<role_name>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ ansible-playbook gg.yml
-
-PLAY [all] *******************************************************************************************************************************************************************************************************
-
-TASK [Gathering Facts] *******************************************************************************************************************************************************************************************
-fatal: [samplenode1]: FAILED! => {"msg": "Missing sudo password"}
-
-PLAY RECAP *******************************************************************************************************************************************************************************************************
-samplenode1                : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
-
-devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ vi gg.yml
-devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ vi gg.yml
-devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ cd ..
-devopsadmin@ip-172-31-47-250:/etc/ansible$ vi hosts
-devopsadmin@ip-172-31-47-250:/etc/ansible$ ansible-playbook gg.yml
-ERROR! the playbook: gg.yml could not be found
-devopsadmin@ip-172-31-47-250:/etc/ansible$ cd playbook_area/
-devopsadmin@ip-172-31-47-250:/etc/ansible/playbook_area$ ansible-playbook gg.yml
-
-PLAY [all] *******************************************************************************************************************************************************************************************************
-
-TASK [Gathering Facts] *******************************************************************************************************************************************************************************************
-fatal: [samplenode1]: FAILED! => {"msg": "Missing sudo password"}
-
-PLAY RECAP *******************************************************************************************************************************************************************************************************
-samplenode1                : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
-
-
-
-
-ansible-playbook gg.yml --syntax-check
