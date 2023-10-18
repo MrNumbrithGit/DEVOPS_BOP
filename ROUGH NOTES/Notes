@@ -1633,7 +1633,7 @@ https://developer.hashicorp.com/terraform/downloads
 provider "aws" {
   region     = "us-east-1"
   access_key = "AKIAQ654CTC6IIGWXLGS"
-  secret_key = "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"
+  secret_key = "VArx7gmAi49TooMT"
 }
 
 # Create AWS Instance
