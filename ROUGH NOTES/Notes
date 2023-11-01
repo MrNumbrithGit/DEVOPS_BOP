@@ -1667,8 +1667,6 @@ resource "aws_instance" "NewInstance" {
   }
 }
 
-AKIAXQ43RIU5L4OWFUUC
-nIR+jaVvYJrgp2rCUORWLw0SEdVa8o6BWsxZXrtG
 -----------------------------
 1. Amazon Virtual Private Cloud (VPC): VPC is the fundamental networking construct in AWS. 
 It allows you to create an isolated network within the AWS cloud, providing you with control 
