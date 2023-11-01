@@ -1,0 +1,99 @@
+VIKUL PROJECT
+http://43.205.96.44:8080/job/terraform/configure
+
+JENKINS
+
+
+node{
+    stage('Git checkout'){
+    git 'https://github.com/vikulrepo/insurance-project.git'
+    }
+    stage('code build'){
+        sh 'mvn clean package'
+    }
+    stage('publishing the report'){
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/Insurance/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+    }
+    stage('building the docker image'){
+        sh 'docker build -t vikuldocker/insuranceproject:1.0 .'
+    }
+    stage('login and push to dockerhub'){
+        withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerpass')]) {
+        sh 'docker login -u vikuldocker -p ${dockerpass}'
+        sh 'docker push vikuldocker/insuranceproject:1.0'
+}
+    }
+    stage('Deploy to the test server'){
+        ansiblePlaybook become: true, credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
+    }
+}
+
+-------------------------------------
+
+
+
+TERRAFORM
+
+pipeline {
+  agent any
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git 'https://github.com/vikulrepo/insurance-project.git'
+      }
+    }
+
+    stage('Terraform Init') {
+      steps {
+        // Execute 'terraform init' command
+        sh 'terraform init'
+      }
+    }
+
+    stage('Terraform Plan') {
+      steps {
+        // Execute 'terraform plan' command
+        sh 'terraform plan'
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        // Execute 'terraform apply' command with auto-approval
+        sh 'terraform apply -auto-approve'
+      }
+    }
+
+    //stage('Terraform Destroy') {
+      //steps {
+        // Execute 'terraform destroy' command with auto-approval
+       //sh 'terraform destroy -auto-approve'
+     // }
+    //}
+  }
+}
+
+
+-------------------------------------
+
+kUBERNETES
+
+node{
+    stage('code checkout'){
+        git 'https://github.com/vikulrepo/insurance-project.git'
+    }
+    stage('deployment'){
+        echo 'deploying'
+        sh 'sudo kubectl apply -f kubernetesfile.yml'
+    }
+    stage('show'){
+       sh 'sudo kubectl get all'
+    }
+    stage('show pods'){
+       sh 'sudo kubectl get pods -o wide'
+       //sh 'curl http://checkip.amazonaws.com'
+    }
+    }
+
+-------------------------------------
