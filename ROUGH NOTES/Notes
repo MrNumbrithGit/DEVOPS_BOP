@@ -357,6 +357,9 @@ ___________________________             ___________________________
 ___________________________ ----GIT---- ___________________________
 
 
+Import exsisting git project?
+Import > Import git > Clone > URL > Master > Impport existing ecplise porject > General > 
+
 Version Control System :::
 				
 		- Used to version control the source code. 
@@ -408,7 +411,7 @@ The Git workflow typically involves a series of commands to manage and track cha
 
 2. **Clone a Repository:**
    - `git clone <repository_url>`: Copies an existing Git repository from a remote location to your local machine.
-
+   - 'git clone -b <b_name> <repo_url>'
 3. **Stage Changes:**
    - `git add <file>`: Stages a file or changes for the next commit.
    - `git add .` or `git add --all`: Stages all changes in the current directory.
@@ -488,10 +491,8 @@ git merge : This gives us the complete picture of the commit history and branch 
 git rebase : This will cleans up commit on that branch by moving commit history to the tip of the main branch.
 git squash : This will clean up all the commit making that into a single commit.
 
-
+cherrypick (Not recommended in realtime) : 
 git rm <file(s)> : Removes the specified file(s) from both the working directory and the Git index.
-
-
 
 Git MERGE vs REBASE vs SQUASH
 https://youtu.be/0chZFIZLR_0?si=RWXEQz2LPbXms_cn
@@ -663,10 +664,10 @@ Build Triggers
 - github webhook
 	It is used to trigger the jenkins job, whenever there is any changes happened in the src_code.
 	Create- Web hook configuration in github repo.				
-		> GitHub > 	Repo > Settings > Webhooks > Payload URL :	http://54.166.164.210:8080/github-webhook/	> Content type (applicatio/json) 
+		> GitHub > 	Repo > Settings > Webhooks > Payload URL :	http://54.234.50.229:8080/github-webhook/	> Content type (applicatio/json) 
 		> event type (Just the push event.) > Add webhook. >  
 			
-			
+			http://54.234.50.229:8080/
 - Poll SCM  (Only if there is changes)
 	It is used to trigger the jenkins job, based on the schedule and if there is any changes happened in the src_code.
 	Define  Cron Tab.
@@ -892,14 +893,14 @@ Docker Compose
 -----------------------------------
 #build from a docker file. (.)
 docker build -t mrnumbrithdocker/demonew:0.2 .
-docker build -t smitachawla67/hello:1.8 .
+
 #Docker Login
 docker login -u mrnumbrithdocker
 
 #docker push imagename
 docker push mrnumbrithdocker/demonew:0.2
 
-#tO Run the appli on -itd with -p
+#tO Run the appli on -itd with -p(interactively in detached mode.)
 docker run -itd -p 7070:8080 --name DemoNewwar smitachawla67/demonew:1.8
 
 #Create and run a container from an image, with a custom name:
@@ -1259,19 +1260,31 @@ K8s Cluster Pre-requisites
 | Selectors                | May not have label selectors, making it harder to group and manage| Use label selectors to group and manage pods, allowing easy scaling and updates |
 		
 =======================================================
+In Kubernetes, there are several controller objects that help manage and maintain the desired state of resources within a cluster. Here is a list of some common Kubernetes controller objects:
+
+1. **ReplicaSet**
+2. **Deployment**
+3. **StatefulSet**
+4. **DaemonSet**
+5. **Job**
+6. **CronJob**
+7. **HorizontalPodAutoscaler (HPA)**
+8. **PodDisruptionBudget (PDB)**
+9. **Namespace**
+10. **Custom Controllers**
+11. **Ingress**
+
 
 On Restart deployment,ID will change
-
-
 				Services :::
 					ClusterIP 	(Default Service)
 					NodePort 	- It is used to expose the pods to internet.
 					Load Balancer		
-
-					
 			Kubernetes Namespaces 			==> Logical Partitioning of the Cluster.
 					Can be created based on the Application / Environments.
 					
+Internet --> LB --> Ingress --> NodePort --> Pod
+
 =======================================================
 
 Pod Creation
@@ -1436,11 +1449,7 @@ ANSIBLE
 					- Configure the Server - Installation/Unstallation/Upgrade of tools/Services
 					- Deployment of Applications 
 					- Used to perform Security Patch updates in all the target Machines
-					
 					- Should be reusable
-					
-
-		
 
 ===========================================		
 [testnodes]
@@ -1617,11 +1626,20 @@ ansible-galaxy install <author>.<role_name>
 ansible-playbook my_playbook.yml
 
 =================================================
-
+M
+H
+B
+T
 
 ======================================================================================================================
 
 TERRAFORM
+
+INIT
+PLAN 
+VALIDATE
+APPLY
+DESTROY
 
 AWS CLOUD FORMATION / ARM / GRM
 
@@ -1632,8 +1650,8 @@ https://developer.hashicorp.com/terraform/downloads
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = "AKIAQ654CTC6IIGWXLGS"
-  secret_key = "VArx7gmAi49TooMT"
+  access_key = "AKIAQ654"
+  secret_key = "VArx7gmAi49TooMTT"
 }
 
 # Create AWS Instance
@@ -1643,13 +1661,14 @@ resource "aws_instance" "NewInstance" {
   ami           = "ami-0261755bbcb8c4a84"
   instance_type = "t2.micro"
   key_name      = "ClassNewKeyPair"
-
+  
   tags = {
-    Name = "TerraDemo"
+    Name = "TerraDemoUD"
   }
 }
 
-
+AKIAXQ43RIU5L4OWFUUC
+nIR+jaVvYJrgp2rCUORWLw0SEdVa8o6BWsxZXrtG
 -----------------------------
 1. Amazon Virtual Private Cloud (VPC): VPC is the fundamental networking construct in AWS. 
 It allows you to create an isolated network within the AWS cloud, providing you with control 
@@ -1664,19 +1683,64 @@ You can specify inbound and outbound traffic rules to control access to your ins
 7. Internet Gateway: An Internet Gateway allows traffic from your VPC to the public internet and vice versa. 
 It's essential for instances in public subnets to access the internet.
 
------------------------------
+8. Network Interface: 
+======================================================================================================================
+
+MONITORING
+
+Prometheus : 9090
+Grafana : 3000
+Node-Exporter : 9100
 
 
 
-AKIAQ654CTC6IIGWXLGS
-VArx7gmAi49TooMTTXm3y1EhEjVcr4zXxg6sJZrI
+
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+	  
+  - job_name: "PromGrafTarget"
+    static_configs:
+      - targets: ["172.31.38.141:9100"]
+  - job_name: "K8sMaster"
+    static_configs:
+      - targets: ["172.31.36.58:9100"]
+  - job_name: "K8sNode"
+    static_configs:
+      - targets: ["172.31.44.64:9100"]
+
+Queries for Metrics:
+
+In Grafana, you can create panels with queries for the following metrics:
+
+a. Node CPU Utilization:
+
+Query: 100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+b. Memory Utilization:
+
+Query: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+c. Disk Space Utilization:
+
+Query: (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes)) * 100
+
+(1 - (node_filesystem_avail_bytes{instance="YOUR_NODE_IP:9100"} / node_filesystem_size_bytes{instance="YOUR_NODE_IP:9100"})) * 100
+
+
+(1 - (node_filesystem_avail_bytes{instance="172.31.36.58:9100", mountpoint="/"} / node_filesystem_size_bytes{instance="172.31.36.58:9100", mountpoint="/"})) * 100
+  or
+(1 - (node_filesystem_avail_bytes{instance="172.31.44.64:9100", mountpoint="/"} / node_filesystem_size_bytes{instance="172.31.44.64:9100", mountpoint="/"})) * 100
+
 
 ======================================================================================================================
 
 PROJECT
 
 www.google.com --> Host based routing
-www.google.com/abc -sdjnudsdsjd
+www.google.com/abc --> Path based routing
 
 Terroform 
 	- Provision the servers for complete process.
@@ -1697,8 +1761,29 @@ Kubernetes
 ------------------
 Integrate Prometheus and Grafana for the all servers and Kubernetes cluster
 
+					Jenkins_master				==> git, jdk, Jenkins
+					Jenkins-Build_Server 		==> git, jdk, maven, docker
+					QA_Server					==> jdk,tomcat, / docker
+					Prod_Server 				==> jdk,tomcat, / docker
+					Monitoring_Server			==> prometheus & Grafana
+					Kubernetes_Master 			==> Kubernetes Components 
+					Kubernetes_Worknode1,2,3	==> Kubernetes Components 
+					Ansible_Controller			==> python & ansible
+					
+-----------------------
+
+DEVOPS
+SDLC PROCESS X DEVOPS
+DEV SHELL PYTHON JAVA
+TEST TESTNG SELI JUNIT
+GIT ALL COMMANDS A2Z
 
 
+
+
+				
+			
+		
 
 
 
