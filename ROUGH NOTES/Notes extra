@@ -1,0 +1,147 @@
+find / -name mysql
+https://youtu.be/3id6l_BWdNA -- > Ansible END TO END PROJECT In Industry - First Project || Real Time Project
+____________________________________
+
+echo $var1                      -- Linux Terminal output
+
+echo "${var1}"				    -- Jenkins/Groovy Terminal output
+
+"This is a variable {{var1}}"   -- Ansible Playbook Terminal output
+____________________________________
+
+ansible-playbook gg.yml --syntax-check
+____________________________________
+
+usermod -aG docker devopsadmin
+# addgroup,docker is a group,devopsadmin is a user
+___________________________________
+usermod -aG sudo ansibleadmin
+___________________________________
+
+demonew-0.0.1-SNAPSHOT/NewFile.html
+
+___________________________________
+echo -e "\e[32m$(ansible --version)\e[0m" 
+echo -e "\e[32m$(java --version)\e[0m" 
+echo -e "\e[32m$(mvn --version)\e[0m" 
+echo -e "\e[32m$(git --version)\e[0m" 
+echo -e "\e[32m$(systemctl status tomcat9)\e[0m" 
+echo -e "\e[32m$(docker --version)\e[0m" 
+echo -e "\e[32m$(git clone https://github.com/vikulrepo/Addressbook2.git)\e[0m"
+echo -e "\e[32m$(docker-compose --version)\e[0m"
+
+___________________________________
+
+version: '3'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: 'admin'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
+  
+  
+==================================================
+REMOVE JDK 
+
+sudo apt remove openjdk-17-jre openjdk-17-jdk
+sudo apt update
+sudo apt install openjdk-11-jre openjdk-11-jdk
+sudo update-alternatives --config java
+java --version
+==================================================
+// JM / JS   loop_project
+pipeline {
+
+    agent { label 'SlaveNode1' }
+	
+    tools {
+        maven "maven_3.6.3"
+          }
+
+	environment {	
+		DOCKERHUB_CREDENTIALS=credentials('mrnumbrithdocker')
+	}
+	
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+				git 'https://github.com/MrNumbrithGit/demonew.git'
+            }
+        }
+        stage('Application_Build') {
+            steps {
+                echo 'Perform Maven Build'
+				sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+				sh 'docker version'
+				sh "docker build -t mrnumbrithdocker/loopdoc:${BUILD_NUMBER} ."
+				sh 'docker image list'
+				sh "docker tag mrnumbrithdocker/loopdoc:${BUILD_NUMBER} mrnumbrithdocker/loopdoc:latest"
+            }
+        }
+        		stage('Login2DockerHub') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+		stage('Publish_to_Docker_Registry') {
+			steps {
+				sh "docker push mrnumbrithdocker/loopdoc:latest"
+			}
+		}
+		stage('Deploy to Kubernetes Cluster') {
+            steps {
+		        script {
+		            sshPublisher(publishers: [sshPublisherDesc(configName: 'KubeMaster', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f looptomcat.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'looptomcat.yml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+		            }
+            }
+	}
+
+    }
+}
+
+
+===========
+Jenkins Plugins 
+
+html publisher
+ssh publisher
+
+
+
+VIKUL PROJECT
+   Code checkout
+   mvn build
+   publish surefire report
+   ansible
+   
