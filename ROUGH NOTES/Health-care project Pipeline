@@ -1,0 +1,208 @@
+sudo hostnamectl set-hostname "JenkinsMaster"
+sudo hostnamectl set-hostname "JenkinsSlave"
+sudo hostnamectl set-hostname "QA_Docker"
+
+
+Jenkins Pass
+MrNumbrith
+MrNumbrith
+
+
+samplenode1 ansible_ssh_host=172.31.21.165 ansible_ssh_user=ansibleadmin
+------------------------------
+
+pipeline {
+    agent { label 'SlaveNode' }
+
+    tools {
+        maven "maven_3.6.3"
+    }
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('Dockerpass')
+    }
+
+    parameters {
+        choice(
+            name: 'NAMESPACE',
+            choices: ['dev', 'qa'],
+            description: 'Select the Kubernetes namespace to deploy the project'
+        )
+    }
+
+    stages {
+                stage('SCM_Checkout') {
+            steps {
+                echo "Selected Namespace: ${params.NAMESPACE}"
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/MrNumbrithGit/star-agile-health-care.git'
+            }
+        }
+
+        stage('Application_Build') {
+            steps {
+                echo 'Perform Maven Build'
+                sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker version'
+                sh "docker build -t mrnumbrithdocker/healthcare:${BUILD_NUMBER} ."
+                sh 'docker image list'
+                sh "docker tag mrnumbrithdocker/healthcare:${BUILD_NUMBER} mrnumbrithdocker/healthcare:latest"
+            }
+        }
+
+        stage('Login2DockerHub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+
+        stage('Publish_to_Docker_Registry') {
+            steps {
+                sh "docker push mrnumbrithdocker/healthcare:latest"
+            }
+        }
+        stage('package update for vulnerability check') {
+            steps {
+                ansiblePlaybook credentialsId: 'SlaveNodeCrentials', installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
+            }
+        }        
+        stage('Deploy to Kubernetes Cluster') {
+            steps {
+                script {
+                    def selectedNamespace = params.NAMESPACE
+                    echo "Selected Namespace: ${selectedNamespace}"
+                    sshPublisher(publishers: [
+                        sshPublisherDesc(
+                            configName: 'Kubernetes',
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote: false,
+                                    excludes: '',
+                                    execCommand: "kubectl apply -f k8sdeployment.yaml -n ${selectedNamespace}",
+                                    execTimeout: 120000,
+                                    flatten: false,
+                                    makeEmptyDirs: false,
+                                    noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+',
+                                    remoteDirectory: '.',
+                                    remoteDirectorySDF: false,
+                                    removePrefix: '',
+                                    sourceFiles: 'k8sdeployment.yaml'
+                                )
+                            ],
+                            usePromotionTimestamp: false,
+                            useWorkspaceInPromotion: false,
+                            verbose: true
+                        )
+                    ])
+                }
+            }
+        }
+
+        stage('Approve - push to PRODUCTION') {
+            steps {
+                script {
+                    env.APPROVED_DEPLOY = input message: 'User input required Choose "Yes" | "Abort"'
+                }
+            }
+        }
+
+        stage('Delete Test pods') {
+            steps {
+                script {
+                    def selectedNamespace = params.NAMESPACE
+                    sshPublisher(publishers: [
+                        sshPublisherDesc(
+                            configName: 'Kubernetes',
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote: false,
+                                    excludes: '',
+                                    execCommand: "kubectl delete -f k8sdeployment.yaml -n ${selectedNamespace}",
+                                    execTimeout: 120000,
+                                    flatten: false,
+                                    makeEmptyDirs: false,
+                                    noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+',
+                                    remoteDirectory: '.',
+                                    remoteDirectorySDF: false,
+                                    removePrefix: '',
+                                    sourceFiles: 'k8sdeployment.yaml'
+                                )
+                            ],
+                            usePromotionTimestamp: false,
+                            useWorkspaceInPromotion: false,
+                            verbose: true
+                        )
+                    ])
+                }
+            }
+        }
+
+        stage('Deploy to production') {
+            steps {
+                script {
+                    sshPublisher(publishers: [
+                        sshPublisherDesc(
+                            configName: 'Kubernetes',
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote: false,
+                                    excludes: '',
+                                    execCommand: 'kubectl apply -f k8sdeployment.yaml -n prod',
+                                    execTimeout: 120000,
+                                    flatten: false,
+                                    makeEmptyDirs: false,
+                                    noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+',
+                                    remoteDirectory: '.',
+                                    remoteDirectorySDF: false,
+                                    removePrefix: '',
+                                    sourceFiles: '*.yaml'
+                                )
+                            ],
+                            usePromotionTimestamp: false,
+                            useWorkspaceInPromotion: false,
+                            verbose: true
+                        )
+                    ])
+                }
+            }
+        }
+    }
+}
+
+
+
+==========================
+
+samplenode1 ansible_ssh_host=172.31.47.86 ansible_ssh_user=ansibleadmin
+
+
+===========================
+
+pipeline {
+    agent { label 'SlaveNode' }
+
+    stages {
+        stage('Git Checkout (Built-In-Node)') {
+            steps {
+                // Checkout your code from Git
+                git branch: 'main', url: 'https://github.com/s009desh/healtcare.git'
+            }
+        }
+
+        stage('Ansible Deployment (Built-In-Node)') {
+            steps {
+                script {
+					
+                }
+            }
+        }
+    }
+}
