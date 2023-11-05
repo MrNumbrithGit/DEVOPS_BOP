@@ -442,6 +442,8 @@ The Git workflow typically involves a series of commands to manage and track cha
 14. **Branch Management:**
     - `git branch -d <branch_name>`: Deletes a branch (if merged).
     - `git branch -D <branch_name>`: Deletes a branch (regardless of merge status).
+	- git branch -m <old_branch_name> <new_branch_name>   : Rename branch 
+
 	
 8. **Merge Branches:**
    - `git merge <TargetBranch_name>`: Combines changes from one branch into another.
@@ -456,7 +458,7 @@ The Git workflow typically involves a series of commands to manage and track cha
     - `git push`: Sends your local commits to a remote repository.
 	
 	- `git remote add origin https://github.com/MrNumbrithGit/FacebookSeleniumTest.git
-	- `git remote remove add origin https://github.com/MrNumbrithGit/FacebookSeleniumTest.git	
+	- `git remote remove origin https://github.com/MrNumbrithGit/FacebookSeleniumTest.git	
 	- `git push -u origin master
 	- 'git remote -v' : List of URLs added
 	
@@ -479,7 +481,7 @@ DEFAULT	-  git reset --mixed <commit_hash>: Moves the branch pointer to a previo
     - `git stash apply`: Applies the most recent stash.
     - `git stash pop`: Applies the most recent stash and removes it.
 
-16. **Rebase & Squash Commits (Interactive Rebase):**
+16. **Rebase & Squash Commits (Interactive Rebase):** https://twitter.com/alexxubyte/status/1617926474279030784
 	-  git rebase -i HEAD~<number_of_commits>: Combines multiple commits into one or more commits interactively during a rebase operation.
 											HEAD~6 ==> Interactive mode ==> Type squash for the commit you dont want show ==> comment "#" commit messages.
 	- `git rebase <base_branch>`: Moves the current branch to the tip of the `<base_branch>` and reapplies the changes made on the current branch on top of it. 
@@ -1363,8 +1365,25 @@ kubectl get deploy
 kubectl get po -o wid
 
 =======================================================
+=======================================================
+Kubernetes Ingress controller.
+
+		- To expose any service to the internet we use the loadbalancer.
+		
+		Resource Consolidation: Instead of having separate Load Balancers for different services, 
+		Ingress can act as a single point of entry to the cluster. It can manage multiple service endpoints, 
+		making it easier to configure and manage.
+
+		- Multiple Services, Single Entry
+		- Name-based Virtual Hosting
+		- HTTPS Termination
+		- 
 
 
+
+
+
+=======================================================
 kubectl set image pod tomcat-demonew tomcat-demonew-container=mrnumbrithdocker/demonew:0.1
 
 
@@ -1666,6 +1685,7 @@ resource "aws_instance" "NewInstance" {
     Name = "TerraDemoUD"
   }
 }
+
 
 -----------------------------
 1. Amazon Virtual Private Cloud (VPC): VPC is the fundamental networking construct in AWS. 
